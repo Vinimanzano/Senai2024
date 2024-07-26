@@ -1,0 +1,37 @@
+import { Tabs } from 'expo-router';
+import React from 'react';
+
+import { TabBarIcon } from '@/components/navigation/TabBarIcon';
+import { Colors } from '@/constants/Colors';
+import { useColorScheme } from '@/hooks/useColorScheme';
+
+export default function TabLayout() {
+  const colorScheme = useColorScheme();
+
+  return (
+    <Tabs
+      screenOptions={{
+        tabBarActiveTintColor: Colors[colorScheme ?? 'light'].tint,
+        headerShown: false,
+      }}>
+      <Tabs.Screen
+        name="index"
+        options={{
+          title: 'Início',
+          tabBarIcon: ({ color, focused }) => (
+            <TabBarIcon name={focused ? 'water' : 'water-outline'} color={color} />
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="explore"
+        options={{
+          title: 'Dicas de Hidratação',
+          tabBarIcon: ({ color, focused }) => (
+            <TabBarIcon name={focused ? 'information-circle' : 'information-circle-outline'} color={color} />
+          ),
+        }}
+      />
+    </Tabs>
+  );
+}
