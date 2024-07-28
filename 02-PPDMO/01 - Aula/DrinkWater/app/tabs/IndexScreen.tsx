@@ -6,7 +6,7 @@ import { ThemedText } from '@/components/ThemedText';
 import { ThemedView } from '@/components/ThemedView';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
-const configureNotifications = async (timesPerDay: number) => {
+const configureNotifications = async (timesPerDay: number): Promise<boolean> => {
   const { status } = await Notifications.getPermissionsAsync();
   if (status !== 'granted') {
     const { status: newStatus } = await Notifications.requestPermissionsAsync();
@@ -17,7 +17,7 @@ const configureNotifications = async (timesPerDay: number) => {
         [{ text: "OK" }]
       );
       console.error('Falha ao obter permissão para notificações');
-      return;
+      return false;
     }
   }
 
@@ -46,6 +46,8 @@ const configureNotifications = async (timesPerDay: number) => {
       },
     });
   }
+
+  return true;
 };
 
 const IndexScreen: React.FC = () => {
@@ -74,7 +76,14 @@ const IndexScreen: React.FC = () => {
     }
 
     if (timesPerDay !== '' && timesPerDay > 0 && timesPerDay <= 100) {
-      configureNotifications(timesPerDay);
+      const success = await configureNotifications(timesPerDay);
+      if (success) {
+        Alert.alert(
+          "Lembretes Configurados",
+          "Os lembretes foram configurados com sucesso!",
+          [{ text: "OK" }]
+        );
+      }
     } else {
       Alert.alert(
         "Erro",
@@ -137,10 +146,10 @@ const styles = StyleSheet.create({
   title: {
     fontSize: 24,
     fontWeight: 'bold',
-    color: '#ffff', // Título em branco
+    color: '#ffff',
   },
   infoCard: {
-    backgroundColor: '#34495e', // Fundo do cartão
+    backgroundColor: '#34495e',
     borderRadius: 10,
     padding: 20,
     margin: 20,
@@ -154,11 +163,11 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: 'bold',
     marginBottom: 10,
-    color: '#ffff', // Título em branco
+    color: '#ffff',
   },
   infoText: {
     fontSize: 16,
-    color: '#ecf0f1', // Texto do tópico
+    color: '#ecf0f1',
   },
   contentContainer: {
     padding: 20,
@@ -166,7 +175,7 @@ const styles = StyleSheet.create({
   label: {
     fontSize: 18,
     marginBottom: 10,
-    color: '#7f8c8d', // Subtítulo
+    color: '#7f8c8d',
   },
   input: {
     borderWidth: 1,
@@ -174,7 +183,7 @@ const styles = StyleSheet.create({
     borderRadius: 5,
     padding: 10,
     marginBottom: 10,
-    color: '#bdc3c7', // Descrição do tópico
+    color: '#bdc3c7',
   },
   error: {
     color: 'red',
