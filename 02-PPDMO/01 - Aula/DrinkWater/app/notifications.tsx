@@ -1,16 +1,15 @@
-// app/notifications.ts
 import * as Notifications from 'expo-notifications';
-import { Platform, Alert } from 'react-native';
+import { Platform } from 'react-native';
 
-export const configureNotifications = async () => {
-  const { status } = await Notifications.requestPermissionsAsync();
+// Solicitar permissão para notificações
+const requestNotificationPermissions = async () => {
+  const { status } = await Notifications.getPermissionsAsync();
   if (status !== 'granted') {
-    Alert.alert(
-      'Permissão de Notificação',
-      'Para receber lembretes de hidratação, você precisa conceder permissão para notificações.',
-      [{ text: 'OK' }]
-    );
-    return;
+    const { status: newStatus } = await Notifications.requestPermissionsAsync();
+    if (newStatus !== 'granted') {
+      alert('Permissão para notificações não concedida!');
+      return;
+    }
   }
 
   if (Platform.OS === 'android') {
@@ -21,4 +20,23 @@ export const configureNotifications = async () => {
       lightColor: '#FF231F7C',
     });
   }
+};
+
+// Configurar notificações
+const configureNotifications = async (intervalInHours: number) => {
+  await requestNotificationPermissions();
+
+  await Notifications.cancelAllScheduledNotificationsAsync();
+
+  const intervalInSeconds = Math.max(intervalInHours * 3600, 60);
+  await Notifications.scheduleNotificationAsync({
+    content: {
+      title: "Hora de Beber Água!",
+      body: "Lembre-se de se manter hidratado ao longo do dia!",
+    },
+    trigger: {
+      seconds: intervalInSeconds,
+      repeats: true,
+    },
+  });
 };
