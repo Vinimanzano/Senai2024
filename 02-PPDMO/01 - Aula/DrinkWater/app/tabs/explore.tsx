@@ -1,4 +1,3 @@
-// app/tabs/explore.tsx
 import React from 'react';
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Alert } from 'react-native';
 import { ThemedView } from '@/components/ThemedView';

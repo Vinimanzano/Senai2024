@@ -7,8 +7,7 @@ const requestNotificationPermissions = async () => {
   if (status !== 'granted') {
     const { status: newStatus } = await Notifications.requestPermissionsAsync();
     if (newStatus !== 'granted') {
-      alert('Permissão para notificações não concedida!');
-      return;
+      throw new Error('Permissão para notificações não concedida!');
     }
   }
 
@@ -24,19 +23,22 @@ const requestNotificationPermissions = async () => {
 
 // Configurar notificações
 const configureNotifications = async (intervalInHours: number) => {
-  await requestNotificationPermissions();
+  try {
+    await requestNotificationPermissions();
+    await Notifications.cancelAllScheduledNotificationsAsync();
 
-  await Notifications.cancelAllScheduledNotificationsAsync();
-
-  const intervalInSeconds = Math.max(intervalInHours * 3600, 60);
-  await Notifications.scheduleNotificationAsync({
-    content: {
-      title: "Hora de Beber Água!",
-      body: "Lembre-se de se manter hidratado ao longo do dia!",
-    },
-    trigger: {
-      seconds: intervalInSeconds,
-      repeats: true,
-    },
-  });
+    const intervalInSeconds = Math.max(intervalInHours * 3600, 60);
+    await Notifications.scheduleNotificationAsync({
+      content: {
+        title: "Hora de Beber Água!",
+        body: "Lembre-se de se manter hidratado ao longo do dia!",
+      },
+      trigger: {
+        seconds: intervalInSeconds,
+        repeats: true,
+      },
+    });
+  } catch (error) {
+    console.error(error);
+  }
 };

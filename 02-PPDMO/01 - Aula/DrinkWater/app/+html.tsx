@@ -1,8 +1,13 @@
 import React from 'react';
-import { Html } from 'react-native';
+import { HtmlView } from 'react-native-htmlview';
 
 const HtmlComponent: React.FC = () => {
-  return <Html>Desenvolvido por Vinícius Manzano</Html>;
+  return (
+    <HtmlView
+      value="<p>Desenvolvido por Vinícius Manzano</p>"
+      stylesheet={{ p: { fontSize: 18, color: '#333' } }}
+    />
+  );
 };
 
 export default HtmlComponent;

@@ -1,6 +1,6 @@
 // app/+not-found.tsx
 import React, { useEffect } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, ActivityIndicator } from 'react-native';
 import { useRouter } from 'expo-router';
 
 const NotFound: React.FC = () => {
@@ -16,7 +16,9 @@ const NotFound: React.FC = () => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.subtitle}>Você será redirecionado para a proxima pagina...</Text>
+      <Text style={styles.title}>Não Encontrado</Text>
+      <Text style={styles.subtitle}>Você será redirecionado para a próxima página...</Text>
+      <ActivityIndicator size="large" color="#666" />
     </View>
   );
 };

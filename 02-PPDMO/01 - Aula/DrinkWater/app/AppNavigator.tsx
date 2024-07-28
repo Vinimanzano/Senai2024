@@ -5,11 +5,31 @@ import Tabs from './tabs/tabs';
 
 const Stack = createNativeStackNavigator();
 
-const AppNavigator: React.FC = () => {
+const AppNavigator = () => {
   return (
-    <Stack.Navigator initialRouteName="Login">
-      <Stack.Screen name="Login" component={LoginScreen} />
-      <Stack.Screen name="Main" component={Tabs} />
+    <Stack.Navigator
+      initialRouteName="Login"
+      screenOptions={{
+        headerStyle: {
+          backgroundColor: '#333',
+        },
+        headerTintColor: '#fff',
+      }}
+    >
+      <Stack.Screen
+        name="Login"
+        component={LoginScreen}
+        options={{
+          title: 'Login',
+        }}
+      />
+      <Stack.Screen
+        name="Main"
+        component={Tabs}
+        options={{
+          title: 'Principal',
+        }}
+      />
     </Stack.Navigator>
   );
 };

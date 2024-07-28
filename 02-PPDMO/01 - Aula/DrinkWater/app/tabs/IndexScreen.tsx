@@ -13,13 +13,13 @@ const IndexScreen: React.FC = () => {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    if (timesPerDay !== '' && timesPerDay > 0 && timesPerDay <= 100) {
+    if (timesPerDay!== '' && timesPerDay > 0 && timesPerDay <= 100) {
       const intervalInHours = 24 / timesPerDay;
-      if (Platform.OS !== 'web') {
+      if (Platform.OS!== 'web') {
         configureNotifications(intervalInHours);
       }
       setError(null);
-    } else if (timesPerDay !== '') {
+    } else if (timesPerDay!== '') {
       setError('O número de vezes por dia deve estar entre 1 e 100.');
     }
   }, [timesPerDay]);
@@ -34,7 +34,7 @@ const IndexScreen: React.FC = () => {
       return;
     }
 
-    if (timesPerDay !== '' && timesPerDay > 0 && timesPerDay <= 100) {
+    if (timesPerDay!== '' && timesPerDay > 0 && timesPerDay <= 100) {
       const intervalInHours = 24 / timesPerDay;
       configureNotifications(intervalInHours);
     } else {
@@ -47,7 +47,7 @@ const IndexScreen: React.FC = () => {
   };
 
   const colorScheme = useColorScheme();
-  const backgroundColor = colorScheme === 'dark' ? '#1D3D47' : '#A1CEDC';
+  const backgroundColor = colorScheme === 'dark'? '#1D3D47' : '#A1CEDC';
 
   return (
     <ParallaxScrollView
@@ -73,9 +73,9 @@ const IndexScreen: React.FC = () => {
       <ThemedView style={styles.contentContainer}>
         <Text style={styles.label}>Quantas vezes por dia você deseja ser lembrado de beber água?</Text>
         <TextInput
-          style={[styles.input, { borderColor: error ? 'red' : '#ccc' }]}
+          style={[styles.input, { borderColor: error? 'ed' : '#ccc' }]}
           keyboardType="numeric"
-          value={timesPerDay === '' ? '' : timesPerDay.toString()}
+          value={timesPerDay === ''? '' : timesPerDay.toString()}
           onChangeText={(text) => {
             if (text === '') {
               setTimesPerDay('');
