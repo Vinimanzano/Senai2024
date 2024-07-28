@@ -1,81 +1,67 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Alert, Platform, StyleSheet, Text, TextInput, View, Button, Image } from 'react-native';
 import * as Notifications from 'expo-notifications';
-import { useColorScheme } from 'react-native';
 import ParallaxScrollView from '@/components/ParallaxScrollView';
 import { ThemedText } from '@/components/ThemedText';
 import { ThemedView } from '@/components/ThemedView';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 const configureNotifications = async (timesPerDay: number) => {
-  try {
-    // Solicita permissões para notificações
-    const { status } = await Notifications.getPermissionsAsync();
-    if (status !== 'granted') {
-      const { status: newStatus } = await Notifications.requestPermissionsAsync();
-      if (newStatus !== 'granted') {
-        Alert.alert(
-          "Permissão de Notificação",
-          "Para receber lembretes de hidratação, você precisa conceder permissão para notificações.",
-          [{ text: "OK" }]
-        );
-        console.error('Falha ao obter permissão para notificações');
-        return;
-      }
+  const { status } = await Notifications.getPermissionsAsync();
+  if (status !== 'granted') {
+    const { status: newStatus } = await Notifications.requestPermissionsAsync();
+    if (newStatus !== 'granted') {
+      Alert.alert(
+        "Permissão de Notificação",
+        "Para receber lembretes de hidratação, você precisa conceder permissão para notificações.",
+        [{ text: "OK" }]
+      );
+      console.error('Falha ao obter permissão para notificações');
+      return;
     }
+  }
 
-    // Configuração do canal para Android
-    if (Platform.OS === 'android') {
-      await Notifications.setNotificationChannelAsync('water-channel', {
-        name: 'Water Channel',
-        importance: Notifications.AndroidImportance.HIGH,
-        vibrationPattern: [0, 250, 250, 250],
-        lightColor: '#FF231F7C',
-      });
-    }
+  if (Platform.OS === 'android') {
+    await Notifications.setNotificationChannelAsync('water-channel', {
+      name: 'Water Channel',
+      importance: Notifications.AndroidImportance.HIGH,
+      vibrationPattern: [0, 250, 250, 250],
+      lightColor: '#FF231F7C',
+    });
+  }
 
-    // Cancela todas as notificações agendadas
-    await Notifications.cancelAllScheduledNotificationsAsync();
+  await Notifications.cancelAllScheduledNotificationsAsync();
+  const intervalInSeconds = Math.max(24 * 3600 / timesPerDay, 60);
 
-    // Calcula o intervalo mínimo de 60 segundos
-    const intervalInSeconds = Math.max(24 * 3600 / timesPerDay, 60);
-
-    // Agenda as notificações
-    for (let i = 0; i < timesPerDay; i++) {
-      const triggerTime = i * intervalInSeconds;
-
-      await Notifications.scheduleNotificationAsync({
-        content: {
-          title: "Hora de Beber Água!",
-          body: "Lembre-se de se manter hidratado ao longo do dia. Beber água ajuda a manter sua energia, melhora a digestão e contribui para a saúde geral do seu corpo. Não se esqueça de beber água agora!",
-        },
-        trigger: {
-          seconds: triggerTime,
-          repeats: true,
-        },
-      });
-    }
-  } catch (error) {
-    console.error('Erro na configuração das notificações:', error);
+  for (let i = 0; i < timesPerDay; i++) {
+    const triggerTime = i * intervalInSeconds;
+    await Notifications.scheduleNotificationAsync({
+      content: {
+        title: "Hora de Beber Água!",
+        body: "Lembre-se de se manter hidratado ao longo do dia. Beber água ajuda a manter sua energia, melhora a digestão e contribui para a saúde geral do seu corpo. Não se esqueça de beber água agora!",
+      },
+      trigger: {
+        seconds: triggerTime,
+        repeats: true,
+      },
+    });
   }
 };
 
 const IndexScreen: React.FC = () => {
   const [timesPerDay, setTimesPerDay] = useState<number | ''>('');
   const [error, setError] = useState<string | null>(null);
-  const [notificationsConfigured, setNotificationsConfigured] = useState<boolean>(false);
 
   useEffect(() => {
     if (timesPerDay !== '' && timesPerDay > 0 && timesPerDay <= 100) {
-      if (Platform.OS !== 'web' && !notificationsConfigured) {
+      if (Platform.OS !== 'web') {
         configureNotifications(timesPerDay);
-        setNotificationsConfigured(true);
       }
       setError(null);
     } else if (timesPerDay !== '') {
       setError('O número de vezes por dia deve estar entre 1 e 100.');
     }
-  }, [timesPerDay, notificationsConfigured]);
+  }, [timesPerDay]);
 
   const handleReminder = async () => {
     if (Platform.OS === 'web') {
@@ -88,16 +74,7 @@ const IndexScreen: React.FC = () => {
     }
 
     if (timesPerDay !== '' && timesPerDay > 0 && timesPerDay <= 100) {
-      if (!notificationsConfigured) {
-        await configureNotifications(timesPerDay);
-        setNotificationsConfigured(true);
-      } else {
-        Alert.alert(
-          "Lembrete",
-          "As notificações já foram configuradas.",
-          [{ text: "OK" }]
-        );
-      }
+      configureNotifications(timesPerDay);
     } else {
       Alert.alert(
         "Erro",
@@ -106,9 +83,6 @@ const IndexScreen: React.FC = () => {
       );
     }
   };
-
-  const colorScheme = useColorScheme();
-  const backgroundColor = colorScheme === 'dark' ? '#1D3D47' : '#A1CEDC';
 
   return (
     <ParallaxScrollView
@@ -119,7 +93,7 @@ const IndexScreen: React.FC = () => {
           style={styles.reactLogo}
         />
       }
-      style={[styles.container, { backgroundColor }]}
+      style={[styles.container]}
     >
       <ThemedView style={styles.titleContainer}>
         <Icon name="tint" size={30} color="#1e5878" style={styles.icon} />
@@ -134,26 +108,14 @@ const IndexScreen: React.FC = () => {
       <ThemedView style={styles.contentContainer}>
         <Text style={styles.label}>Quantas vezes por dia você deseja ser lembrado de beber água?</Text>
         <TextInput
-          style={[styles.input, { borderColor: error ? 'red' : '#ccc' }]}
+          style={styles.input}
+          placeholder="Insira o número de lembretes por dia"
           keyboardType="numeric"
-          value={timesPerDay === '' ? '' : timesPerDay.toString()}
-          onChangeText={(text) => {
-            if (text === '') {
-              setTimesPerDay('');
-              setError(null);
-            } else {
-              const num = parseInt(text, 10);
-              if (num >= 1 && num <= 100) {
-                setTimesPerDay(num);
-                setError(null);
-              } else {
-                setError('O número de vezes por dia deve estar entre 1 e 100.');
-              }
-            }
-          }}
+          value={timesPerDay.toString()}
+          onChangeText={(value) => setTimesPerDay(value === '' ? '' : parseInt(value))}
         />
-        {error && <Text style={styles.errorText}>{error}</Text>}
-        <Button title="Configurar Lembrete" onPress={handleReminder} color="#007BFF" />
+        {error && <Text style={styles.error}>{error}</Text>}
+        <Button title="Configurar Lembretes" onPress={handleReminder} />
       </ThemedView>
     </ParallaxScrollView>
   );
@@ -163,66 +125,65 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
   },
-  reactLogo: {
-    width: 400,
-    height: 270,
-    alignSelf: 'row',
-  },
   titleContainer: {
+    flexDirection: 'row',
     alignItems: 'center',
-    marginVertical: 20,
+    justifyContent: 'center',
+    padding: 20,
   },
   icon: {
-    marginBottom: 10,
+    marginRight: 10,
+  },
+  title: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    color: '#ffff', // Título em branco
   },
   infoCard: {
-    padding: 15,
-    marginVertical: 10,
-    borderRadius: 8,
-    backgroundColor: '#fff',
+    backgroundColor: '#34495e', // Fundo do cartão
+    borderRadius: 10,
+    padding: 20,
+    margin: 20,
     shadowColor: '#000',
     shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.1,
+    shadowOpacity: 0.2,
     shadowRadius: 4,
-    elevation: 3,
+    elevation: 5,
   },
   infoTitle: {
-    fontSize: 16,
+    fontSize: 18,
     fontWeight: 'bold',
     marginBottom: 10,
-    color: '#000',
+    color: '#ffff', // Título em branco
   },
   infoText: {
-    fontSize: 14,
-    color: '#000',
+    fontSize: 16,
+    color: '#ecf0f1', // Texto do tópico
   },
   contentContainer: {
-    paddingHorizontal: 20,
+    padding: 20,
   },
   label: {
     fontSize: 18,
     marginBottom: 10,
-    color: '#fff',
+    color: '#7f8c8d', // Subtítulo
   },
   input: {
-    height: 40,
-    borderColor: '#ccc',
     borderWidth: 1,
-    marginBottom: 10,
-    paddingHorizontal: 10,
+    borderColor: '#ccc',
     borderRadius: 5,
-    width: '100%',
-    backgroundColor: '#fff',
-    color: '#000',
+    padding: 10,
+    marginBottom: 10,
+    color: '#bdc3c7', // Descrição do tópico
   },
-  errorText: {
+  error: {
     color: 'red',
-    marginTop: 10,
-    textAlign: 'center',
+    marginBottom: 10,
   },
-  title: {
-    color: '#fff',
-  }
+  reactLogo: {
+    width: 500,
+    height: 300,
+  },
 });
 
 export default IndexScreen;
