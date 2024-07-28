@@ -1,4 +1,3 @@
-// app/+not-found.tsx
 import React, { useEffect } from 'react';
 import { View, Text, StyleSheet, ActivityIndicator } from 'react-native';
 import { useRouter } from 'expo-router';
