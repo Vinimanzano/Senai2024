@@ -16,7 +16,10 @@
       "supportsTablet": true,
       "bundleIdentifier": "com.vinimanzano.DrinkWater",
       "infoPlist": {
-        "UIBackgroundModes": ["fetch", "remote-notification"]
+        "UIBackgroundModes": [
+          "fetch",
+          "remote-notification"
+        ]
       }
     },
     "android": {
@@ -43,7 +46,7 @@
         "origin": false
       },
       "eas": {
-        "projectId": "cd0211da-f74c-46c4-a307-c07eaea2aabb"
+        "projectId": "2ebabd90-4b95-4bb5-bda5-ed9012707d7b"
       }
     }
   }
