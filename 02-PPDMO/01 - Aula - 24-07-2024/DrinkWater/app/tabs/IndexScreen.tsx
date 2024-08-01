@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert, Keyboard } from 'react-native';
 import { useRouter } from 'expo-router';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
@@ -21,6 +21,9 @@ const IndexScreen: React.FC = () => {
 
       setErrorMessage('');
     }
+
+    // Dismiss the keyboard
+    Keyboard.dismiss();
   };
 
   return (

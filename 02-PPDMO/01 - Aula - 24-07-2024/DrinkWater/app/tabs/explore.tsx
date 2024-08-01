@@ -1,7 +1,5 @@
 import React from 'react';
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity, Alert } from 'react-native';
-import { ThemedView } from '@/components/ThemedView';
-import { ThemedText } from '@/components/ThemedText';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
 const handleTopicClick = (topic: string) => {
@@ -21,60 +19,56 @@ const handleTopicClick = (topic: string) => {
       message = "Informação não disponível.";
   }
 
-  Alert.alert(
-    topic,
-    message,
-    [{ text: "OK" }]
-  );
+  Alert.alert(topic, message, [{ text: "OK" }]);
 };
 
 const Explore: React.FC = () => {
   return (
-    <ThemedView style={styles.container}>
+    <View style={styles.container}>
       <ScrollView contentContainerStyle={styles.scrollView}>
         <Text style={styles.title}>Dicas de Hidratação</Text>
         <Text style={styles.subtitle}>Clique nos tópicos para abrir as informações</Text>
         <View style={styles.card}>
           <TouchableOpacity onPress={() => handleTopicClick('Importância da Hidratação')}>
             <View style={styles.topicContainer}>
-              <Icon name="info-circle" size={24} color="#3498db" />
-              <ThemedText type="body" style={styles.topicText}>
+              <Icon name="info-circle" size={24} color="#007BFF" />
+              <Text style={styles.topicText}>
                 Importância da Hidratação
-              </ThemedText>
+              </Text>
             </View>
-            <ThemedText type="body" style={styles.topicDescription}>
+            <Text style={styles.topicDescription}>
               Entenda por que manter-se hidratado é crucial para sua saúde geral.
-            </ThemedText>
+            </Text>
           </TouchableOpacity>
         </View>
         <View style={styles.card}>
           <TouchableOpacity onPress={() => handleTopicClick('Benefícios de Beber Água')}>
             <View style={styles.topicContainer}>
-              <Icon name="tint" size={24} color="#3498db" />
-              <ThemedText type="body" style={styles.topicText}>
+              <Icon name="tint" size={24} color="#007BFF" />
+              <Text style={styles.topicText}>
                 Benefícios de Beber Água
-              </ThemedText>
+              </Text>
             </View>
-            <ThemedText type="body" style={styles.topicDescription}>
+            <Text style={styles.topicDescription}>
               Descubra como a água pode melhorar sua digestão, pele e energia.
-            </ThemedText>
+            </Text>
           </TouchableOpacity>
         </View>
         <View style={styles.card}>
           <TouchableOpacity onPress={() => handleTopicClick('Dicas para Manter-se Hidratado')}>
             <View style={styles.topicContainer}>
-              <Icon name="hand-holding-water" size={24} color="#3498db" />
-              <ThemedText type="body" style={styles.topicText}>
+              <Icon name="hand-holding-water" size={24} color="#007BFF" />
+              <Text style={styles.topicText}>
                 Dicas para Manter-se Hidratado
-              </ThemedText>
+              </Text>
             </View>
-            <ThemedText type="body" style={styles.topicDescription}>
+            <Text style={styles.topicDescription}>
               Conheça estratégias práticas para garantir que você beba água suficiente.
-            </ThemedText>
+            </Text>
           </TouchableOpacity>
         </View>
       </ScrollView>
-    </ThemedView>
+    </View>
   );
 };
 
@@ -87,21 +81,21 @@ const styles = StyleSheet.create({
     padding: 15,
   },
   title: {
-    fontSize: 26,
-    fontWeight: '700',
-    marginVertical: 20,
-    color: '#ffff',
+    fontSize: 28,
+    fontWeight: 'bold',
+    color: '#fff',
+    marginBottom: 30,
     textAlign: 'center',
   },
   subtitle: {
     fontSize: 16,
-    color: '#7f8c8d',
+    color: '#666666',
     textAlign: 'center',
     marginBottom: 20,
   },
   card: {
-    backgroundColor: '#34495e',
-    borderRadius: 12,
+    backgroundColor: '#333',
+    borderRadius: 5,
     padding: 20,
     marginBottom: 15,
     shadowColor: '#000000',
@@ -116,13 +110,13 @@ const styles = StyleSheet.create({
   },
   topicText: {
     fontSize: 16,
-    color: '#ecf0f1',
+    color: '#fff',
     marginLeft: 10,
     fontWeight: '600',
   },
   topicDescription: {
     fontSize: 14,
-    color: '#bdc3c7',
+    color: '#FF6F61',
     marginTop: 5,
   },
 });
