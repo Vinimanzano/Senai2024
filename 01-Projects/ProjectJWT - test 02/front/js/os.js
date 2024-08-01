@@ -45,18 +45,21 @@ const displayOS = async () => {
         ordens.forEach(os => {
             osContainer.innerHTML += `
                 <div data-id="${os.id}">
-                    <p>${os.descricao} - Status: ${os.status}</p>
+                    <p>Descrição: ${os.descricao}</p>
+                    <p>Colaborador: ${os.colaborador}</p>
+                    <p>Executor: ${os.executor || 'Não definido'}</p>
+                    <p>Abertura: ${new Date(os.abertura).toLocaleString()}</p>
+                    <p>Encerramento: ${os.encerramento ? new Date(os.encerramento).toLocaleString() : 'Não definido'}</p>
                     <button class="edit-btn">Editar</button>
                     <button class="delete-btn">Excluir</button>
                 </div>
             `;
         });
 
-        
         document.querySelectorAll('.edit-btn').forEach(btn => {
             btn.addEventListener('click', () => {
                 const id = btn.parentElement.getAttribute('data-id');
-                editOS(id);
+                openEditModal(id);
             });
         });
 
@@ -81,33 +84,38 @@ const deleteOSHandler = async (id) => {
     }
 };
 
-const editOS = async (id) => {
+const openEditModal = async (id) => {
     try {
         const ordens = await fetchOS();
-        const ordem = ordens.find(os => os.id === id);
+        const ordem = ordens.find(os => os.id == id);
         if (ordem) {
-            document.getElementById('id').value = ordem.id;
-            document.getElementById('descricao').value = ordem.descricao;
-            document.getElementById('status').value = ordem.status;
+            document.getElementById('modal-id').value = ordem.id;
+            document.getElementById('modal-descricao').value = ordem.descricao;
+            document.getElementById('modal-colaborador').value = ordem.colaborador;
+            document.getElementById('modal-executor').value = ordem.executor || '';
+            document.getElementById('modal-abertura').value = new Date(ordem.abertura).toISOString().slice(0, 16);
+            document.getElementById('modal-encerramento').value = ordem.encerramento ? new Date(ordem.encerramento).toISOString().slice(0, 16) : '';
+            document.getElementById('edit-modal').style.display = 'block';
         }
     } catch (error) {
         console.error('Erro ao buscar ordem de serviço para edição', error);
     }
 };
 
-document.getElementById('os-form').addEventListener('submit', async (e) => {
+const closeEditModal = () => {
+    document.getElementById('edit-modal').style.display = 'none';
+};
+
+document.getElementById('edit-form').addEventListener('submit', async (e) => {
     e.preventDefault();
     const form = e.target;
     const formData = new FormData(form);
     const os = Object.fromEntries(formData.entries());
 
     try {
-        if (os.id) {
-            await updateOS(os.id, os);
-        } else {
-            await createOS(os);
-        }
+        await updateOS(os.id, os);
         form.reset();
+        closeEditModal();
         displayOS();
     } catch (error) {
         console.error('Erro ao salvar ordem de serviço', error);
@@ -117,5 +125,7 @@ document.getElementById('os-form').addEventListener('submit', async (e) => {
 document.getElementById('back-button').addEventListener('click', function() {
     window.history.back();
 });
+
+document.querySelector('.close').addEventListener('click', closeEditModal);
 
 displayOS();

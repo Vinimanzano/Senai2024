@@ -11,18 +11,32 @@
 
     <button id="back-button">Voltar</button>
 
-    <form id="os-form">
-        <input type="hidden" name="id" id="id">
-        <label for="descricao">Descrição:</label>
-        <textarea name="descricao" id="descricao" required></textarea>
-
-        <label for="status">Status:</label>
-        <input type="text" name="status" id="status" required>
-
-        <button type="submit">Salvar</button>
-    </form>
-
     <div id="os"></div>
+
+    <div id="edit-modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <form id="edit-form">
+                <input type="hidden" name="id" id="modal-id">
+                <label for="modal-descricao">Descrição:</label>
+                <textarea name="descricao" id="modal-descricao" required></textarea>
+
+                <label for="modal-colaborador">Colaborador:</label>
+                <input type="text" name="colaborador" id="modal-colaborador" required>
+
+                <label for="modal-executor">Executor:</label>
+                <input type="text" name="executor" id="modal-executor">
+
+                <label for="modal-abertura">Abertura:</label>
+                <input type="datetime-local" name="abertura" id="modal-abertura" required>
+
+                <label for="modal-encerramento">Encerramento:</label>
+                <input type="datetime-local" name="encerramento" id="modal-encerramento">
+
+                <button type="submit">Salvar</button>
+            </form>
+        </div>
+    </div>
 
     <script src="../js/os.js"></script>
 </body>

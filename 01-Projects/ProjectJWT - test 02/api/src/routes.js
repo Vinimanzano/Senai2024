@@ -1,7 +1,5 @@
 const express = require('express');
 const router = express.Router();
-const path = require('path');
-const { exec } = require('child_process');
 
 const Middleware = require('./middleware/middleware');
 const Colaborador = require('./controllers/colaborador');
@@ -27,17 +25,6 @@ router.get('/comentario/os/:id', Middleware.validaAcesso, Comentario.read);
 router.get('/comentario', Middleware.validaAcesso, Comentario.read);
 router.put('/comentario/:id', Middleware.validaAcesso, Comentario.update);
 router.delete('/comentario/:id', Middleware.validaAcesso, Comentario.del);
-
-router.post('/seed', Middleware.validaAcesso, (req, res) => {
-    exec(`node ${path.join(__dirname, '../../api/prisma/seed.js')}`, (err, stdout, stderr) => {
-        if (err) {
-            console.error('Erro ao executar o seed:', stderr);
-            return res.status(500).json({ message: 'Erro ao executar o seed' });
-        }
-        console.log('Seed executado com sucesso:', stdout);
-        res.status(200).json({ message: 'Seed executado com sucesso' });
-    });
-});
 
 router.get('/', (req, res) => res.json("API OSs respondendo"));
 
