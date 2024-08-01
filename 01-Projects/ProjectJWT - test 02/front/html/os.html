@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerenciador de Ordens de Serviço</title>
+    <link rel="stylesheet" href="../css/os.css">
+</head>
+<body>
+    <h1>Gerenciador de Ordens de Serviço</h1>
+
+    <button id="back-button">Voltar</button>
+
+    <form id="os-form">
+        <input type="hidden" name="id" id="id">
+        <label for="descricao">Descrição:</label>
+        <textarea name="descricao" id="descricao" required></textarea>
+
+        <label for="status">Status:</label>
+        <input type="text" name="status" id="status" required>
+
+        <button type="submit">Salvar</button>
+    </form>
+
+    <div id="os"></div>
+
+    <script src="../js/os.js"></script>
+</body>
+</html>

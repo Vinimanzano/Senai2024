@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerenciador de Comentários</title>
+    <link rel="stylesheet" href="../css/comentario.css"
+</head>
+<body>
+    <h1>Gerenciador de Comentários</h1>
+
+    <!-- Botão para voltar à página anterior -->
+    <button id="back-button">Voltar</button>
+
+    <form id="comentario-form">
+        <input type="hidden" name="id" id="id">
+        <label for="texto">Texto:</label>
+        <textarea name="texto" id="texto" required></textarea>
+
+        <button type="submit">Salvar</button>
+    </form>
+
+    <!-- Lista de comentários -->
+    <div id="comentarios"></div>
+
+    <script src="../js/comentarios.js"></script>
+
+</body>
+</html>
