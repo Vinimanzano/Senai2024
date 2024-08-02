@@ -110,4 +110,10 @@ const del = async (req, res) => {
     }
 };
 
-module.exports = { login, create, read, update, del };
+module.exports = { 
+    login, 
+    create, 
+    read, 
+    update, 
+    del 
+};
