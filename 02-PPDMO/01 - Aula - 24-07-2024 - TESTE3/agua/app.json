@@ -1,0 +1,33 @@
+{
+  "expo": {
+    "name": "agua",
+    "slug": "agua",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/logo2.png",
+    "userInterfaceStyle": "light",
+    "splash": {
+      "image": "./assets/logo2.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#ffffff"
+    },
+    "ios": {
+      "supportsTablet": true
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/logo2.png",
+        "backgroundColor": "#ffffff"
+      },
+      "package": "com.vinimanzano.agua"
+    },
+    "web": {
+      "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "c31e4af0-d7a4-4522-ac6a-5f60728d315d"
+      }
+    }
+  }
+}
