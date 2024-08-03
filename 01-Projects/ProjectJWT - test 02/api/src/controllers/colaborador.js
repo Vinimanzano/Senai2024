@@ -5,7 +5,7 @@ require('dotenv').config();
 
 const login = async (req, res) => {
     const { matricula, pin } = req.body;
-
+    
     try {
         const colaborador = await prisma.colaborador.findFirst({
             where: {

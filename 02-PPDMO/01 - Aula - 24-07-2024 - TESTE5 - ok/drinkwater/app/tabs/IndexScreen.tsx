@@ -32,7 +32,7 @@ const IndexScreen: React.FC = () => {
 
       Alert.alert(
         'Quantidade de Água Definida',
-        `Você definiu ${amountInLiters.toFixed(2)} litros de água por dia.`,
+        `Você definiu ${amountInLiters.toFixed(4)} litros de água por dia.`,
       );
 
       setErrorMessage('');

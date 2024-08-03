@@ -1,3 +1,9 @@
 sesi senai - ( google )
 
 email: vinicius.santos303@senaisp.edu.br
+
+DATABASE_URL="mysql://root@localhost:3306/os"
+
+PORT=3000
+
+SECRET_KEY=a98!3@158
