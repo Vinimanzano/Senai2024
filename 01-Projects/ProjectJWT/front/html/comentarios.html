@@ -10,6 +10,7 @@
     <h1>Gerenciador de Comentários</h1>
 
     <button id="back-button">Voltar</button>
+    <button id="open-create-modal">Criar Comentário</button> <!-- Botão para abrir o modal de criação -->
 
     <!-- Campo de pesquisa e botão para comentários -->
     <div id="search-container">
@@ -19,21 +20,39 @@
 
     <div id="comentarios"></div>
 
+    <!-- Modal para criar comentário -->
+    <div id="create-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-create">&times;</span>
+            <form id="create-form">
+                <label for="create-os">OS:</label>
+                <input type="text" id="create-os" required>
+                <label for="create-colaborador">Colaborador:</label>
+                <input type="text" id="create-colaborador" required>
+                <label for="create-data">Data:</label>
+                <input type="date" id="create-data" required>
+                <label for="create-comentario">Comentário:</label>
+                <textarea id="create-comentario" required></textarea>
+                <button type="submit">Criar</button>
+            </form>
+        </div>
+    </div>
+
     <!-- Modal para editar comentário -->
-    <div id="edit-modal">
+    <div id="edit-modal" class="modal">
         <div class="modal-content">
             <span class="close">&times;</span>
             <form id="edit-form">
                 <input type="hidden" name="id" id="modal-id">
                 <label for="modal-texto">Texto:</label>
-                <input type="text" name="texto" id="modal-texto" required>
+                <textarea name="texto" id="modal-texto" required></textarea>
                 <button type="submit">Salvar</button>
             </form>
         </div>
     </div>
 
     <!-- Modal para visualizar detalhes do comentário -->
-    <div id="comentario-detail-modal" style="display: none;">
+    <div id="comentario-detail-modal" class="modal">
         <div class="modal-content">
             <span class="close-details">&times;</span>
             <p><strong>ID:</strong> <span id="details-id"></span></p>

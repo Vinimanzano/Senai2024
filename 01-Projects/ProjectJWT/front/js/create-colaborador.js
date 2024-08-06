@@ -30,13 +30,13 @@ document.getElementById('create-colaborador-form').addEventListener('submit', as
         await createColaborador(colaborador);
         alert('Colaborador criado com sucesso!');
         e.target.reset();
+        window.location.href = '../html/login.html';
     } catch (error) {
         console.error('Erro ao criar colaborador', error);
         alert(`Erro: ${error.message}`);
     }
 });
 
-// Função para alternar a visibilidade da senha
 const togglePasswordVisibility = () => {
     const passwordInput = document.getElementById('pin');
     const toggleButton = document.getElementById('toggle-password');

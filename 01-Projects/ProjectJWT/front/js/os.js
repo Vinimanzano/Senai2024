@@ -75,6 +75,13 @@ const displayOS = (ordens) => {
             deleteOSHandler(id);
         });
     });
+
+    document.querySelectorAll('.details-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const id = btn.parentElement.getAttribute('data-id');
+            openDetailsModal(id);
+        });
+    });
 };
 
 const deleteOSHandler = async (id) => {
@@ -87,12 +94,21 @@ const deleteOSHandler = async (id) => {
     }
 };
 
+const openCreateModal = () => {
+    document.getElementById('create-modal').style.display = 'block';
+};
+
+const closeCreateModal = () => {
+    document.getElementById('create-modal').style.display = 'none';
+};
+
 const openEditModal = async (id) => {
     try {
         const ordem = await fetchOSById(id);
         if (ordem) {
             document.getElementById('modal-id').value = ordem.id;
             document.getElementById('modal-descricao').value = ordem.descricao;
+            document.getElementById('modal-colaborador').value = ordem.colaborador || '';
             document.getElementById('modal-executor').value = ordem.executor || '';
             document.getElementById('modal-abertura').value = new Date(ordem.abertura).toISOString().slice(0, 16);
             document.getElementById('modal-encerramento').value = ordem.encerramento ? new Date(ordem.encerramento).toISOString().slice(0, 16) : '';
@@ -106,23 +122,6 @@ const openEditModal = async (id) => {
 const closeEditModal = () => {
     document.getElementById('edit-modal').style.display = 'none';
 };
-
-document.getElementById('edit-form').addEventListener('submit', async (e) => {
-    e.preventDefault();
-    const form = e.target;
-    const formData = new FormData(form);
-    const os = Object.fromEntries(formData.entries());
-
-    try {
-        await updateOS(os.id, os);
-        form.reset();
-        closeEditModal();
-        allOrders = await fetchOS();
-        displayOS(allOrders);
-    } catch (error) {
-        console.error('Erro ao salvar ordem de serviço', error);
-    }
-});
 
 const openDetailsModal = async (id) => {
     try {
@@ -168,8 +167,45 @@ document.getElementById('back-button').addEventListener('click', function() {
     window.history.back();
 });
 
+document.getElementById('open-create-modal').addEventListener('click', openCreateModal);
+
+document.querySelector('.close-create').addEventListener('click', closeCreateModal);
 document.querySelector('.close').addEventListener('click', closeEditModal);
 document.querySelector('.close-details').addEventListener('click', closeDetailsModal);
+
+document.getElementById('create-form').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const form = e.target;
+    const formData = new FormData(form);
+    const os = Object.fromEntries(formData.entries());
+
+    try {
+        await createOS(os);
+        form.reset();
+        closeCreateModal();
+        allOrders = await fetchOS();
+        displayOS(allOrders);
+    } catch (error) {
+        console.error('Erro ao criar ordem de serviço', error);
+    }
+});
+
+document.getElementById('edit-form').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const form = e.target;
+    const formData = new FormData(form);
+    const os = Object.fromEntries(formData.entries());
+
+    try {
+        await updateOS(os.id, os);
+        form.reset();
+        closeEditModal();
+        allOrders = await fetchOS();
+        displayOS(allOrders);
+    } catch (error) {
+        console.error('Erro ao salvar ordem de serviço', error);
+    }
+});
 
 const initialize = async () => {
     try {

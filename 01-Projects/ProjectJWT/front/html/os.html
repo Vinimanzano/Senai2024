@@ -10,6 +10,7 @@
     <h1>Gerenciador de Ordens de Serviço</h1>
 
     <button id="back-button">Voltar</button>
+    <button id="open-create-modal">Criar Nova OS</button>
 
     <div class="search-container">
         <input type="text" id="search-id" placeholder="Pesquisar por ID da OS">
@@ -17,6 +18,32 @@
     </div>
 
     <div id="os"></div>
+
+    <!-- Modal para criação -->
+    <div id="create-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-create">&times;</span>
+            <h2>Criar Nova Ordem de Serviço</h2>
+            <form id="create-form">
+                <label for="create-descricao">Descrição:</label>
+                <textarea name="descricao" id="create-descricao" required></textarea>
+
+                <label for="create-colaborador">Colaborador:</label>
+                <input type="text" name="colaborador" id="create-colaborador">
+
+                <label for="create-executor">Executor:</label>
+                <input type="text" name="executor" id="create-executor">
+
+                <label for="create-abertura">Abertura:</label>
+                <input type="datetime-local" name="abertura" id="create-abertura" required>
+
+                <label for="create-encerramento">Encerramento:</label>
+                <input type="datetime-local" name="encerramento" id="create-encerramento">
+
+                <button type="submit">Criar</button>
+            </form>
+        </div>
+    </div>
 
     <!-- Modal para edição -->
     <div id="edit-modal" class="modal">

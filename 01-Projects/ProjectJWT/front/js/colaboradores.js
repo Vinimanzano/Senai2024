@@ -1,11 +1,91 @@
-// Redireciona para a página inicial ao clicar no botão "Voltar"
-document.getElementById('back-button').addEventListener('click', () => {
-    window.location.href = 'index.html';
-});
-
 const API_BASE_URL = 'http://localhost:3000';
 
-// Alterna a visibilidade do campo de senha
+// Função para buscar colaboradores
+const fetchColaboradores = async () => {
+    const response = await fetch(`${API_BASE_URL}/colaborador`);
+    if (!response.ok) throw new Error('Erro ao buscar colaboradores');
+    return response.json();
+};
+
+// Função para buscar colaborador por matrícula
+const fetchColaboradorByMatricula = async (matricula) => {
+    const response = await fetch(`${API_BASE_URL}/colaborador/${matricula}`);
+    if (!response.ok) throw new Error('Erro ao buscar colaborador');
+    return response.json();
+};
+
+// Função para exibir colaboradores
+const displayColaboradores = async (colaboradores) => {
+    const colaboradorContainer = document.getElementById('colaboradores');
+    colaboradorContainer.innerHTML = '';
+
+    colaboradores.forEach(colaborador => {
+        colaboradorContainer.innerHTML += `
+            <div data-id="${colaborador.matricula}" class="colaborador-card">
+                <p><strong>Matrícula:</strong> ${colaborador.matricula}</p>
+                <p><strong>Nome:</strong> ${colaborador.nome}</p>
+                <p><strong>Cargo:</strong> ${colaborador.cargo}</p>
+                <p><strong>Setor:</strong> ${colaborador.setor}</p>
+                <p>
+                    <span class="pin" id="pin-${colaborador.matricula}" style="display: none;">${colaborador.pin}</span>
+                    <button class="show-pin-btn" data-id="${colaborador.matricula}"><i class="bi bi-eye"></i></button>
+                </p>
+                <button class="edit-btn">Editar</button>
+                <button class="delete-btn">Excluir</button>
+            </div>
+        `;
+    });
+
+    // Adiciona ouvintes para mostrar/ocultar PIN, editar e excluir
+    document.querySelectorAll('.show-pin-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const id = btn.getAttribute('data-id');
+            const pinElement = document.getElementById(`pin-${id}`);
+            const isHidden = pinElement.style.display === 'none';
+            const icon = btn.querySelector('i');
+
+            pinElement.style.display = isHidden ? 'inline' : 'none';
+            icon.className = isHidden ? 'bi bi-eye-slash' : 'bi bi-eye';
+        });
+    });
+
+    document.querySelectorAll('.edit-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const id = btn.parentElement.getAttribute('data-id');
+            openEditModal(id);
+        });
+    });
+
+    document.querySelectorAll('.delete-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            const id = btn.parentElement.getAttribute('data-id');
+            deleteColaboradorHandler(id);
+        });
+    });
+};
+
+// Função para pesquisar colaborador por matrícula
+const searchColaborador = async (e) => {
+    e.preventDefault();
+    const matricula = document.getElementById('search-matricula').value.trim();
+
+    if (matricula) {
+        try {
+            const colaborador = await fetchColaboradorByMatricula(matricula);
+            displayColaboradores([colaborador]);
+        } catch (error) {
+            alert('Colaborador não encontrado');
+            document.getElementById('search-matricula').value = '';
+            const colaboradores = await fetchColaboradores();
+            displayColaboradores(colaboradores);
+        }
+    } else {
+        const colaboradores = await fetchColaboradores();
+        displayColaboradores(colaboradores);
+    }
+};
+
+// Função para alternar a visibilidade da senha
 const togglePasswordVisibility = (inputId, buttonId) => {
     const passwordInput = document.getElementById(inputId);
     const toggleButton = document.getElementById(buttonId);
@@ -19,179 +99,63 @@ const togglePasswordVisibility = (inputId, buttonId) => {
     }
 };
 
-// Adiciona os ouvintes de eventos para os botões de alternar a visibilidade da senha
-document.getElementById('toggle-password').addEventListener('click', () => {
-    togglePasswordVisibility('pin', 'toggle-password');
-});
-
 document.getElementById('toggle-modal-password').addEventListener('click', () => {
     togglePasswordVisibility('modal-pin', 'toggle-modal-password');
 });
 
-// Funções para manipulação dos colaboradores
-const fetchColaboradores = async () => {
-    const response = await fetch(`${API_BASE_URL}/colaborador`);
-    if (!response.ok) throw new Error('Erro ao buscar colaboradores');
-    return response.json();
-};
+// Adicionar event listeners
+document.getElementById('search-btn').addEventListener('click', searchColaborador);
 
-const createColaborador = async (colaborador) => {
-    if (!colaborador.nome || !colaborador.cargo || !colaborador.setor || !colaborador.pin || !colaborador.matricula) {
-        throw new Error('Todos os campos são obrigatórios');
-    }
+document.getElementById('back-button').addEventListener('click', () => {
+    window.location.href = 'index.html';
+});
 
-    const response = await fetch(`${API_BASE_URL}/colaborador`, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(colaborador)
-    });
+document.getElementById('edit-form').addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const matricula = document.getElementById('modal-matricula').value;
+    const updatedColaborador = {
+        matricula: document.getElementById('modal-matricula').value,
+        nome: document.getElementById('modal-nome').value,
+        cargo: document.getElementById('modal-cargo').value,
+        setor: document.getElementById('modal-setor').value,
+        pin: document.getElementById('modal-pin').value
+    };
 
-    if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(`Erro ao criar colaborador: ${errorData.message || response.statusText}`);
-    }
-
-    return response.json();
-};
-
-const updateColaborador = async (id, colaborador) => {
-    const response = await fetch(`${API_BASE_URL}/colaborador/${id}`, {
-        method: 'PUT',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(colaborador)
-    });
-
-    if (!response.ok) {
-        const errorData = await response.json();
-        throw new Error(`Erro ao atualizar colaborador: ${errorData.message || response.statusText}`);
-    }
-
-    return response.json();
-};
-
-const deleteColaborador = async (id) => {
-    const response = await fetch(`${API_BASE_URL}/colaborador/${id}`, {
-        method: 'DELETE'
-    });
-
-    if (!response.ok) throw new Error('Erro ao excluir colaborador');
-};
-
-const displayColaboradores = async () => {
-    const colaboradorContainer = document.getElementById('colaboradores');
     try {
-        const colaboradores = await fetchColaboradores();
-        colaboradorContainer.innerHTML = '';
-        colaboradores.forEach(colaborador => {
-            colaboradorContainer.innerHTML += `
-                <div data-id="${colaborador.matricula}" class="colaborador-card">
-                    <p><strong>Matrícula:</strong> ${colaborador.matricula}</p>
-                    <p><strong>Nome:</strong> ${colaborador.nome}</p>
-                    <p><strong>Cargo:</strong> ${colaborador.cargo}</p>
-                    <p><strong>Setor:</strong> ${colaborador.setor}</p>
-                    <p>
-                        <span class="pin" id="pin-${colaborador.matricula}" style="display: none;">${colaborador.pin}</span>
-                        <button class="show-pin-btn" data-id="${colaborador.matricula}"><i class="bi bi-eye"></i></button>
-                    </p>
-                    <button class="edit-btn">Editar</button>
-                    <button class="delete-btn">Excluir</button>
-                </div>
-            `;
-        });
-
-        // Adiciona os ouvintes de eventos para os botões de mostrar/ocultar PIN
-        document.querySelectorAll('.show-pin-btn').forEach(btn => {
-            btn.addEventListener('click', () => {
-                const id = btn.getAttribute('data-id');
-                const pinElement = document.getElementById(`pin-${id}`);
-                const isHidden = pinElement.style.display === 'none';
-                const icon = btn.querySelector('i');
-
-                pinElement.style.display = isHidden ? 'inline' : 'none';
-                icon.className = isHidden ? 'bi bi-eye-slash' : 'bi bi-eye';
-            });
-        });
-
-        // Adiciona os ouvintes de eventos para os botões de editar
-        document.querySelectorAll('.edit-btn').forEach(btn => {
-            btn.addEventListener('click', () => {
-                const id = btn.parentElement.getAttribute('data-id');
-                openEditModal(id);
-            });
-        });
-
-        // Adiciona os ouvintes de eventos para os botões de excluir
-        document.querySelectorAll('.delete-btn').forEach(btn => {
-            btn.addEventListener('click', () => {
-                const id = btn.parentElement.getAttribute('data-id');
-                deleteColaboradorHandler(id);
-            });
-        });
-
+        await updateColaborador(matricula, updatedColaborador);
+        document.getElementById('edit-modal').style.display = 'none';
+        fetchColaboradores().then(displayColaboradores);
     } catch (error) {
-        console.error('Erro ao buscar colaboradores', error);
+        alert('Erro ao atualizar colaborador');
     }
-};
+});
 
-
-// Manipula a exclusão de um colaborador
-const deleteColaboradorHandler = async (id) => {
+const openEditModal = async (matricula) => {
     try {
-        await deleteColaborador(id);
-        displayColaboradores();
+        const colaborador = await fetchColaboradorByMatricula(matricula);
+        document.getElementById('modal-matricula').value = colaborador.matricula;
+        document.getElementById('modal-matricula-display').value = colaborador.matricula;
+        document.getElementById('modal-nome').value = colaborador.nome;
+        document.getElementById('modal-cargo').value = colaborador.cargo;
+        document.getElementById('modal-setor').value = colaborador.setor;
+        document.getElementById('modal-pin').value = colaborador.pin;
+
+        document.getElementById('edit-modal').style.display = 'block';
     } catch (error) {
-        console.error('Erro ao excluir colaborador', error);
+        alert('Erro ao abrir modal de edição');
     }
 };
 
-// Abre o modal de edição e preenche com as informações do colaborador
-const openEditModal = async (id) => {
-    try {
-        const colaboradores = await fetchColaboradores();
-        const colaborador = colaboradores.find(col => col.matricula === id);
-
-        if (colaborador) {
-            document.getElementById('modal-matricula').value = colaborador.matricula;
-            document.getElementById('modal-matricula-display').value = colaborador.matricula;
-            document.getElementById('modal-nome').value = colaborador.nome;
-            document.getElementById('modal-cargo').value = colaborador.cargo;
-            document.getElementById('modal-setor').value = colaborador.setor;
-            document.getElementById('modal-pin').value = colaborador.pin;
-
-            const modal = document.getElementById('edit-modal');
-            modal.style.display = 'block';
-
-            document.querySelector('.close').onclick = () => {
-                modal.style.display = 'none';
-            };
-
-            document.getElementById('edit-form').onsubmit = async (e) => {
-                e.preventDefault();
-                const updatedColaborador = {
-                    matricula: document.getElementById('modal-matricula').value,
-                    nome: document.getElementById('modal-nome').value,
-                    cargo: document.getElementById('modal-cargo').value,
-                    setor: document.getElementById('modal-setor').value,
-                    pin: document.getElementById('modal-pin').value
-                };
-
-                try {
-                    await updateColaborador(updatedColaborador.matricula, updatedColaborador);
-                    modal.style.display = 'none';
-                    displayColaboradores();
-                } catch (error) {
-                    console.error('Erro ao atualizar colaborador', error);
-                }
-            };
+const deleteColaboradorHandler = async (matricula) => {
+    if (confirm('Tem certeza que deseja excluir este colaborador?')) {
+        try {
+            await deleteColaborador(matricula);
+            fetchColaboradores().then(displayColaboradores);
+        } catch (error) {
+            alert('Erro ao excluir colaborador');
         }
-    } catch (error) {
-        console.error('Erro ao abrir modal de edição', error);
     }
 };
 
-// Carrega e exibe a lista de colaboradores ao carregar a página
-document.addEventListener('DOMContentLoaded', displayColaboradores);
+// Inicializa a página
+fetchColaboradores().then(displayColaboradores);

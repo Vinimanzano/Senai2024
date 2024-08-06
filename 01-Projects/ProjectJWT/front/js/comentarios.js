@@ -14,6 +14,25 @@ const fetchComentario = async () => {
     }
 };
 
+const createComentario = async (comentario) => {
+    try {
+        const response = await fetch(`${API_BASE_URL}/comentario`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(comentario)
+        });
+        if (!response.ok) {
+            const errorDetails = await response.text(); // Obter detalhes do erro
+            throw new Error(`Erro ao criar comentário: ${response.statusText}. Detalhes: ${errorDetails}`);
+        }
+        return response.json();
+    } catch (error) {
+        console.error('Erro ao criar comentário', error);
+    }
+};
+
 const updateComentario = async (id, comentario) => {
     try {
         const response = await fetch(`${API_BASE_URL}/comentario/${id}`, {
@@ -83,6 +102,14 @@ const deleteComentarioHandler = async (id) => {
     }
 };
 
+const openCreateModal = () => {
+    document.getElementById('create-modal').style.display = 'flex';
+};
+
+const closeCreateModal = () => {
+    document.getElementById('create-modal').style.display = 'none';
+};
+
 const openEditModal = async (id) => {
     try {
         const comentarios = await fetchComentario();
@@ -114,6 +141,33 @@ const handleEditFormSubmit = async (event) => {
         displayComentario(allComments);
     } catch (error) {
         console.error('Erro ao atualizar comentário', error);
+    }
+};
+
+const handleCreateFormSubmit = async (event) => {
+    event.preventDefault();
+    const comentario = {
+        os: document.getElementById('create-os').value.trim(),
+        colaborador: document.getElementById('create-colaborador').value.trim(),
+        data: new Date(document.getElementById('create-data').value).toISOString(),
+        comentario: document.getElementById('create-comentario').value.trim()
+    };
+
+    // Verificar se todos os campos estão preenchidos
+    if (!comentario.os || !comentario.colaborador || !comentario.data || !comentario.comentario) {
+        console.error('Todos os campos são obrigatórios');
+        return;
+    }
+
+    try {
+        const result = await createComentario(comentario);
+        if (result) {
+            closeCreateModal();
+            allComments = await fetchComentario();
+            displayComentario(allComments);
+        }
+    } catch (error) {
+        console.error('Erro ao criar comentário', error);
     }
 };
 
@@ -153,10 +207,13 @@ const init = async () => {
         allComments = await fetchComentario();
         displayComentario(allComments);
 
+        document.getElementById('create-form').addEventListener('submit', handleCreateFormSubmit);
         document.getElementById('edit-form').addEventListener('submit', handleEditFormSubmit);
+        document.querySelector('#create-modal .close-create').addEventListener('click', closeCreateModal);
         document.querySelector('#edit-modal .close').addEventListener('click', closeEditModal);
         document.querySelector('#comentario-detail-modal .close-details').addEventListener('click', closeComentarioModal);
         document.getElementById('search-btn').addEventListener('click', handleSearch);
+        document.getElementById('open-create-modal').addEventListener('click', openCreateModal);
         document.getElementById('back-button').addEventListener('click', () => {
             window.history.back();
         });

@@ -13,27 +13,11 @@
 
     <button id="back-button">Voltar</button>
 
-    <form id="colaborador-form">
-        <input type="hidden" name="matricula" id="matricula">
-        <label for="nome">Nome:</label>
-        <input type="text" name="nome" id="nome" required>
-        
-        <label for="cargo">Cargo:</label>
-        <input type="text" name="cargo" id="cargo" required>
-        
-        <label for="setor">Setor:</label>
-        <input type="text" name="setor" id="setor" required>
-        
-        <label for="pin">PIN:</label>
-        <div class="password-container">
-            <input type="password" name="pin" id="pin" required>
-            <span id="toggle-password" class="toggle-password">
-                <i class="bi bi-eye"></i>
-            </span>
-        </div>
-
-        <button type="submit">Salvar</button>
-    </form>
+    <!-- Campo de pesquisa e botão -->
+    <div id="search-container">
+        <input type="text" id="search-matricula" placeholder="Buscar colaborador por matrícula">
+        <button id="search-btn">Buscar</button>
+    </div>
 
     <div id="colaboradores"></div>
 

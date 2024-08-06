@@ -3,12 +3,14 @@ const prisma = new PrismaClient();
 
 const create = async (req, res) => {
     try {
+        console.log('Dados recebidos:', req.body); // Log dos dados recebidos
         const comment = await prisma.comentario.create({
             data: req.body
         });
         return res.status(201).json(comment);
     } catch (error) {
-        return res.status(400).json({ message: "Erro ao criar comentário" });
+        console.error('Erro ao criar comentário:', error); // Log detalhado do erro
+        return res.status(400).json({ message: "Erro ao criar comentário" });
     }
 }
 
@@ -28,48 +30,57 @@ const read = async (req, res) => {
             }
 
             return res.json(comentario);
-        } else {
-            const comentarios = await prisma.comentario.findMany();
-
-            return res.json(comentarios);
         }
+
+        const comentarios = await prisma.comentario.findMany();
+        return res.json(comentarios);
     } catch (error) {
-        return res.status(500).json({ message: "Erro ao buscar comentários" });
+        console.error('Erro ao buscar comentários:', error); // Log detalhado do erro
+        return res.status(400).json({ message: "Erro ao buscar comentários" });
     }
 }
 
 const update = async (req, res) => {
     try {
         const { id } = req.params;
-        const comentarioAtualizado = await prisma.comentario.update({
+        const { comentario } = req.body;
+
+        const updatedComentario = await prisma.comentario.update({
             where: {
                 id: parseInt(id)
             },
-            data: req.body
+            data: {
+                comentario
+            }
         });
-        return res.status(202).json(comentarioAtualizado);
+
+        return res.json(updatedComentario);
     } catch (error) {
-        return res.status(404).json({ message: "Comentário não encontrado" });
+        console.error('Erro ao atualizar comentário:', error); // Log detalhado do erro
+        return res.status(400).json({ message: "Erro ao atualizar comentário" });
     }
-};
+}
 
 const del = async (req, res) => {
     try {
         const { id } = req.params;
+
         await prisma.comentario.delete({
             where: {
                 id: parseInt(id)
             }
         });
-        return res.status(204).send();
+
+        return res.status(204).end();
     } catch (error) {
-        return res.status(404).json({ message: "Comentário não encontrado" });
+        console.error('Erro ao excluir comentário:', error); // Log detalhado do erro
+        return res.status(400).json({ message: "Erro ao excluir comentário" });
     }
-};
+}
 
 module.exports = {
     create,
     read,
     update,
     del
-};
+}
