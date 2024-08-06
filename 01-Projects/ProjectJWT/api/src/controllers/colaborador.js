@@ -97,18 +97,36 @@ const update = async (req, res) => {
 };
 
 const del = async (req, res) => {
+    const { matricula } = req.params;
+
     try {
-        const { matricula } = req.params;
+        await prisma.comentario.deleteMany({
+            where: {
+                colaborador: matricula
+            }
+        });
+
+        await prisma.os.deleteMany({
+            where: {
+                OR: [
+                    { colaborador: matricula },
+                    { executor: matricula }
+                ]
+            }
+        });
         await prisma.colaborador.delete({
             where: {
                 matricula: matricula
             }
         });
+
         return res.status(204).send();
     } catch (error) {
-        return res.status(404).json({ message: 'Colaborador não encontrado ou erro ao excluir' });
+        console.error(`Erro ao excluir colaborador com matrícula ${matricula}:`, error);
+        return res.status(500).json({ message: 'Erro ao excluir colaborador', details: error.message });
     }
 };
+
 
 module.exports = { 
     login, 

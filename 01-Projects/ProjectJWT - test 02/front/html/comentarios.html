@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerenciador de Comentários</title>
+    <link rel="stylesheet" href="../css/comentario.css">
+</head>
+<body>
+    <h1>Gerenciador de Comentários</h1>
+
+    <button id="back-button">Voltar</button>
+
+    <div id="comentarios"></div>
+
+    <div id="edit-modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <form id="edit-form">
+                <input type="hidden" name="id" id="modal-id">
+                <label for="modal-texto">Texto:</label>
+                <input type="text" name="texto" id="modal-texto" required>
+                <button type="submit">Salvar</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="../js/comentarios.js"></script>
+</body>
+</html>

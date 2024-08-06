@@ -52,7 +52,7 @@ const IndexScreen: React.FC = () => {
 
       Alert.alert(
         'Quantidade de Água Definida',
-        `Você definiu ${amountInLiters.toFixed(4)} litros de água por dia.`,
+        `Você definiu ${amountInLiters.toFixed(1)} litros de água por dia.`,
       );
 
       setErrorMessage('');
@@ -61,7 +61,7 @@ const IndexScreen: React.FC = () => {
       await Notifications.scheduleNotificationAsync({
         content: {
           title: 'Quantidade de Água Definida',
-          body: `Você definiu ${amountInLiters.toFixed(4)} litros de água por dia.`,
+          body: `Você definiu ${amountInLiters.toFixed(1)} litros de água por dia.`,
         },
         trigger: null,
       });
@@ -74,10 +74,9 @@ const IndexScreen: React.FC = () => {
     const notificationsPerDay = liters * 4;
     const interval = 60 * 60;
 
-    // Cancelar notificações agendadas anteriormente
     await Notifications.cancelAllScheduledNotificationsAsync();
 
-    for (let i = 0; i < notificationsPerDay; i++) {
+    for (let i = 1; i <= notificationsPerDay; i++) {
       await Notifications.scheduleNotificationAsync({
         content: {
           title: 'Hora de Beber Água!',
@@ -86,7 +85,6 @@ const IndexScreen: React.FC = () => {
         },
         trigger: {
           seconds: i * interval,
-          repeats: true,
         },
       });
     }

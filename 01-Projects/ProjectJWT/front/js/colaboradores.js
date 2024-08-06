@@ -48,15 +48,20 @@ const updateColaborador = async (matricula, updatedColaborador) => {
 // Função para deletar colaborador
 const deleteColaborador = async (matricula) => {
     try {
+        console.log(`Tentando excluir colaborador com matrícula: ${matricula}`);
         const response = await fetch(`${API_BASE_URL}/colaborador/${matricula}`, {
             method: 'DELETE'
         });
-        if (!response.ok) throw new Error('Erro ao excluir colaborador');
+        if (!response.ok) {
+            const errorDetails = await response.text();
+            throw new Error(`Erro ao excluir colaborador: ${response.statusText}. Detalhes: ${errorDetails}`);
+        }
     } catch (error) {
         console.error('Erro ao excluir colaborador', error);
         throw error;
     }
 };
+
 
 // Função para exibir colaboradores
 const displayColaboradores = async (colaboradores) => {
