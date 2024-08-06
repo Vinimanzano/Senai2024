@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gerenciador de Ordens de Serviço</title>
+    <link rel="stylesheet" href="../css/os.css">
+</head>
+<body>
+    <h1>Gerenciador de Ordens de Serviço</h1>
+
+    <button id="back-button">Voltar</button>
+
+    <div class="search-container">
+        <input type="text" id="search-id" placeholder="Pesquisar por ID da OS">
+        <button id="search-btn">Buscar</button>
+    </div>
+
+    <div id="os"></div>
+
+    <!-- Modal para edição -->
+    <div id="edit-modal" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <form id="edit-form">
+                <input type="hidden" name="id" id="modal-id">
+                <label for="modal-descricao">Descrição:</label>
+                <textarea name="descricao" id="modal-descricao" required></textarea>
+
+                <label for="modal-colaborador">Colaborador:</label>
+                <input type="text" name="colaborador" id="modal-colaborador">
+
+                <label for="modal-executor">Executor:</label>
+                <input type="text" name="executor" id="modal-executor">
+
+                <label for="modal-abertura">Abertura:</label>
+                <input type="datetime-local" name="abertura" id="modal-abertura" required>
+
+                <label for="modal-encerramento">Encerramento:</label>
+                <input type="datetime-local" name="encerramento" id="modal-encerramento">
+
+                <button type="submit">Salvar</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modal para detalhes -->
+    <div id="details-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-details">&times;</span>
+            <h2>Detalhes da Ordem de Serviço</h2>
+            <p><strong>ID:</strong> <span id="details-id"></span></p>
+            <p><strong>Descrição:</strong> <span id="details-descricao"></span></p>
+            <p><strong>Colaborador:</strong> <span id="details-colaborador"></span></p>
+            <p><strong>Executor:</strong> <span id="details-executor"></span></p>
+            <p><strong>Abertura:</strong> <span id="details-abertura"></span></p>
+            <p><strong>Encerramento:</strong> <span id="details-encerramento"></span></p>
+        </div>
+    </div>
+
+    <script src="../js/os.js"></script>
+</body>
+</html>

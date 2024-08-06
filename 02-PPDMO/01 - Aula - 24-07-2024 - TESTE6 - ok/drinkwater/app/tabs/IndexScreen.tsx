@@ -72,7 +72,7 @@ const IndexScreen: React.FC = () => {
 
   const scheduleNotifications = async (liters: number) => {
     const notificationsPerDay = liters * 4;
-    const interval = 30 * 60;
+    const interval = 60 * 60;
 
     // Cancelar notificações agendadas anteriormente
     await Notifications.cancelAllScheduledNotificationsAsync();
