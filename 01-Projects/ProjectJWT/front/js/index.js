@@ -1,4 +1,4 @@
-const TIMEOUT_DURATION = 1 * 60 * 1000;
+const TIMEOUT_DURATION = 1 * 60 * 100;
 let timeout;
 
 function resetTimeout() {
