@@ -2,6 +2,7 @@ const API_BASE_URL = 'http://localhost:3000';
 
 let allComments = [];
 
+// Função para buscar comentários
 const fetchComentario = async () => {
     try {
         const response = await fetch(`${API_BASE_URL}/comentario`);
@@ -14,6 +15,7 @@ const fetchComentario = async () => {
     }
 };
 
+// Função para criar um novo comentário
 const createComentario = async (comentario) => {
     try {
         const response = await fetch(`${API_BASE_URL}/comentario`, {
@@ -33,6 +35,7 @@ const createComentario = async (comentario) => {
     }
 };
 
+// Função para atualizar um comentário
 const updateComentario = async (id, comentario) => {
     try {
         const response = await fetch(`${API_BASE_URL}/comentario/${id}`, {
@@ -49,6 +52,7 @@ const updateComentario = async (id, comentario) => {
     }
 };
 
+// Função para deletar um comentário
 const deleteComentario = async (id) => {
     try {
         const response = await fetch(`${API_BASE_URL}/comentario/${id}`, {
@@ -60,6 +64,57 @@ const deleteComentario = async (id) => {
     }
 };
 
+// Função para tratar o envio do formulário de criação
+const handleCreateFormSubmit = async (event) => {
+    event.preventDefault();
+    
+    const os = document.getElementById('create-os').value.trim();
+    const colaborador = document.getElementById('create-colaborador').value.trim();
+    const data = document.getElementById('create-data').value;
+    const comentario = document.getElementById('create-comentario').value.trim();
+
+    if (!os || !colaborador || !data || !comentario) {
+        console.error('Todos os campos são obrigatórios');
+        return;
+    }
+
+    const comentarioData = {
+        os: os,
+        colaborador: colaborador,
+        data: new Date(data).toISOString(),
+        comentario: comentario
+    };
+
+    try {
+        const result = await createComentario(comentarioData);
+        if (result) {
+            closeCreateModal();
+            allComments = await fetchComentario();
+            displayComentario(allComments);
+        }
+    } catch (error) {
+        console.error('Erro ao criar comentário', error);
+    }
+};
+
+// Função para tratar o envio do formulário de edição
+const handleEditFormSubmit = async (event) => {
+    event.preventDefault();
+    const id = document.getElementById('modal-id').value;
+    const comentario = {
+        comentario: document.getElementById('modal-texto').value
+    };
+    try {
+        await updateComentario(id, comentario);
+        closeEditModal();
+        allComments = await fetchComentario();
+        displayComentario(allComments);
+    } catch (error) {
+        console.error('Erro ao atualizar comentário', error);
+    }
+};
+
+// Função para exibir comentários
 const displayComentario = (comentarios) => {
     const comentarioContainer = document.getElementById('comentarios');
     comentarioContainer.innerHTML = '';
@@ -92,6 +147,7 @@ const displayComentario = (comentarios) => {
     });
 };
 
+// Função para tratar a exclusão de um comentário
 const deleteComentarioHandler = async (id) => {
     try {
         await deleteComentario(id);
@@ -102,6 +158,7 @@ const deleteComentarioHandler = async (id) => {
     }
 };
 
+// Funções para abrir e fechar modais
 const openCreateModal = () => {
     document.getElementById('create-modal').style.display = 'flex';
 };
@@ -115,9 +172,16 @@ const openEditModal = async (id) => {
         const comentarios = await fetchComentario();
         const comentario = comentarios.find(com => com.id == id);
         if (comentario) {
-            document.getElementById('modal-id').value = comentario.id;
-            document.getElementById('modal-texto').value = comentario.comentario;
-            document.getElementById('edit-modal').style.display = 'flex';
+            const modalId = document.getElementById('modal-id');
+            const modalTexto = document.getElementById('modal-texto');
+
+            if (modalId && modalTexto) {
+                modalId.value = comentario.id;
+                modalTexto.value = comentario.comentario;
+                document.getElementById('edit-modal').style.display = 'flex';
+            } else {
+                console.error('Elementos do modal não encontrados.');
+            }
         }
     } catch (error) {
         console.error('Erro ao buscar comentário para edição', error);
@@ -128,70 +192,7 @@ const closeEditModal = () => {
     document.getElementById('edit-modal').style.display = 'none';
 };
 
-const handleEditFormSubmit = async (event) => {
-    event.preventDefault();
-    const id = document.getElementById('modal-id').value;
-    const comentario = {
-        comentario: document.getElementById('modal-texto').value
-    };
-    try {
-        await updateComentario(id, comentario);
-        closeEditModal();
-        allComments = await fetchComentario();
-        displayComentario(allComments);
-    } catch (error) {
-        console.error('Erro ao atualizar comentário', error);
-    }
-};
-
-const handleCreateFormSubmit = async (event) => {
-    event.preventDefault();
-    const comentario = {
-        os: document.getElementById('create-os').value.trim(),
-        colaborador: document.getElementById('create-colaborador').value.trim(),
-        data: new Date(document.getElementById('create-data').value).toISOString(),
-        comentario: document.getElementById('create-comentario').value.trim()
-    };
-
-    // Verificar se todos os campos estão preenchidos
-    if (!comentario.os || !comentario.colaborador || !comentario.data || !comentario.comentario) {
-        console.error('Todos os campos são obrigatórios');
-        return;
-    }
-
-    try {
-        const result = await createComentario(comentario);
-        if (result) {
-            closeCreateModal();
-            allComments = await fetchComentario();
-            displayComentario(allComments);
-        }
-    } catch (error) {
-        console.error('Erro ao criar comentário', error);
-    }
-};
-
-const openComentarioModal = async (id) => {
-    try {
-        const comentario = await fetchComentarioById(id);
-        if (comentario) {
-            document.getElementById('details-id').textContent = comentario.id;
-            document.getElementById('details-comentario').textContent = comentario.comentario;
-            document.getElementById('details-colaborador').textContent = comentario.colaborador || 'Não definido';
-            document.getElementById('details-os').textContent = comentario.os || 'Não definido';
-            document.getElementById('details-data').textContent = new Date(comentario.data).toLocaleString();
-
-            document.getElementById('comentario-detail-modal').style.display = 'block';
-        }
-    } catch (error) {
-        console.error('Erro ao buscar comentário para visualização', error);
-    }
-};
-
-const closeComentarioModal = () => {
-    document.getElementById('comentario-detail-modal').style.display = 'none';
-};
-
+// Função para tratar a busca
 const handleSearch = () => {
     const searchId = document.getElementById('search-id').value;
     if (searchId) {
@@ -202,6 +203,7 @@ const handleSearch = () => {
     }
 };
 
+// Função para inicializar a aplicação
 const init = async () => {
     try {
         allComments = await fetchComentario();
@@ -211,7 +213,6 @@ const init = async () => {
         document.getElementById('edit-form').addEventListener('submit', handleEditFormSubmit);
         document.querySelector('#create-modal .close-create').addEventListener('click', closeCreateModal);
         document.querySelector('#edit-modal .close').addEventListener('click', closeEditModal);
-        document.querySelector('#comentario-detail-modal .close-details').addEventListener('click', closeComentarioModal);
         document.getElementById('search-btn').addEventListener('click', handleSearch);
         document.getElementById('open-create-modal').addEventListener('click', openCreateModal);
         document.getElementById('back-button').addEventListener('click', () => {

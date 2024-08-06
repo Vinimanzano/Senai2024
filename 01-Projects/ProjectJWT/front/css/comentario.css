@@ -38,7 +38,7 @@ label {
 input[type="hidden"],
 input[type="text"],
 textarea {
-    width: 100%;
+    width: 105%;
     padding: 12px;
     margin-bottom: 15px;
     border: 1px solid #ddd;

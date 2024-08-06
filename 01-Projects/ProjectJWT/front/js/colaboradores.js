@@ -2,16 +2,60 @@ const API_BASE_URL = 'http://localhost:3000';
 
 // Função para buscar colaboradores
 const fetchColaboradores = async () => {
-    const response = await fetch(`${API_BASE_URL}/colaborador`);
-    if (!response.ok) throw new Error('Erro ao buscar colaboradores');
-    return response.json();
+    try {
+        const response = await fetch(`${API_BASE_URL}/colaborador`);
+        if (!response.ok) throw new Error('Erro ao buscar colaboradores');
+        return response.json();
+    } catch (error) {
+        console.error(error);
+        alert('Erro ao buscar colaboradores');
+    }
 };
 
 // Função para buscar colaborador por matrícula
 const fetchColaboradorByMatricula = async (matricula) => {
-    const response = await fetch(`${API_BASE_URL}/colaborador/${matricula}`);
-    if (!response.ok) throw new Error('Erro ao buscar colaborador');
-    return response.json();
+    try {
+        const response = await fetch(`${API_BASE_URL}/colaborador/${matricula}`);
+        if (!response.ok) throw new Error('Erro ao buscar colaborador');
+        return response.json();
+    } catch (error) {
+        console.error(error);
+        alert('Colaborador não encontrado');
+    }
+};
+
+// Função para atualizar colaborador
+const updateColaborador = async (matricula, updatedColaborador) => {
+    try {
+        const response = await fetch(`${API_BASE_URL}/colaborador/${matricula}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(updatedColaborador)
+        });
+        if (!response.ok) {
+            const errorDetails = await response.text(); // Obter detalhes do erro
+            throw new Error(`Erro ao atualizar colaborador: ${response.statusText}. Detalhes: ${errorDetails}`);
+        }
+        return response.json();
+    } catch (error) {
+        console.error('Erro ao atualizar colaborador', error);
+        throw error; // Lança o erro para ser tratado na chamada da função
+    }
+};
+
+// Função para deletar colaborador
+const deleteColaborador = async (matricula) => {
+    try {
+        const response = await fetch(`${API_BASE_URL}/colaborador/${matricula}`, {
+            method: 'DELETE'
+        });
+        if (!response.ok) throw new Error('Erro ao excluir colaborador');
+    } catch (error) {
+        console.error('Erro ao excluir colaborador', error);
+        throw error;
+    }
 };
 
 // Função para exibir colaboradores
@@ -157,5 +201,4 @@ const deleteColaboradorHandler = async (matricula) => {
     }
 };
 
-// Inicializa a página
 fetchColaboradores().then(displayColaboradores);

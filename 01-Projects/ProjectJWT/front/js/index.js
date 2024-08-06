@@ -1,11 +1,10 @@
 const TIMEOUT_DURATION = 1 * 60 * 1000;
-
 let timeout;
 
 function resetTimeout() {
     clearTimeout(timeout);
     timeout = setTimeout(() => {
-        window.location.href = './html/login.html';
+        window.location.href = '../html/login.html';
     }, TIMEOUT_DURATION);
 }
 
