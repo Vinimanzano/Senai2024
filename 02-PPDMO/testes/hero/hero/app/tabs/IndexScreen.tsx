@@ -48,7 +48,7 @@ const IndexScreen: React.FC = () => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Games List</Text>
+      <Text style={styles.title}>Lista de Jogos</Text>
       <TextInput
         style={styles.searchInput}
         placeholder="Search for games..."

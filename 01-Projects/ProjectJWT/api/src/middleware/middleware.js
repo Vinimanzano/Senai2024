@@ -4,7 +4,7 @@ const SECRET_KEY = process.env.SECRET_KEY;
 
 module.exports = {
     validaAcesso: (req, res, next) => {
-        console.log('Middleware de validação de acesso chamado');
+        console.log('Autenticação Funcionando!');
         next();
     }
 };

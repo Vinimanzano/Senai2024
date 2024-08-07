@@ -26,7 +26,7 @@ const Explore: React.FC = () => {
           placeholderTextColor="#ccc"
           multiline
         />
-        <Button title="Submit" onPress={handleSubmit} />
+        <Button title="Enviar" onPress={handleSubmit} />
       </View>
     </View>
   );
