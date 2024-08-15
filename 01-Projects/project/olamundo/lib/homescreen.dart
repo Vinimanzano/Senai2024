@@ -1,24 +1,44 @@
 import 'package:flutter/material.dart';
-import 'main.dart';
+import 'package:olamundo/main.dart';
+import 'bairros.dart';
 
 class HomeScreen extends StatelessWidget {
+  final String username;
+
+  HomeScreen({required this.username});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Home Screen'),
+        title: Text('Tela Inicial'),
       ),
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-              'Welcome to Home Screen',
-              style: TextStyle(fontSize: 24.0),
+              'Bem - Vindo(a)',
+              style: TextStyle(fontSize: 35),
+            ),
+            SizedBox(height: 20),
+            Text(
+              'Ola, $username',
+              style: TextStyle(fontSize: 18.0),
             ),
             SizedBox(height: 20),
             ElevatedButton(
-              child: Text('Logout'),
+              child: Text('Escolha seu Bairro'),
+              onPressed: () {
+                Navigator.pushReplacement(
+                  context,
+                  MaterialPageRoute(builder: (context) => BairrosScreen()),
+                );
+              },
+            ),
+            SizedBox(height: 20),
+            ElevatedButton(
+              child: Text('Sair'),
               onPressed: () {
                 Navigator.pushReplacement(
                   context,

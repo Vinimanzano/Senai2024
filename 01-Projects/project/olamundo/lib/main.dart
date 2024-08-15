@@ -28,6 +28,7 @@ class _LoginScreenState extends State<LoginScreen> {
   final _formKey = GlobalKey<FormState>();
   String _username = '';
   String _password = '';
+  bool _obscurePassword = true;
 
   void _login() {
     if (_formKey.currentState!.validate()) {
@@ -38,7 +39,9 @@ class _LoginScreenState extends State<LoginScreen> {
         ));
         Navigator.pushReplacement(
           context,
-          MaterialPageRoute(builder: (context) => HomeScreen()),
+          MaterialPageRoute(
+            builder: (context) => HomeScreen(username: _username),
+          ),
         );
       } else {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
@@ -81,8 +84,22 @@ class _LoginScreenState extends State<LoginScreen> {
                 },
               ),
               TextFormField(
-                decoration: InputDecoration(labelText: 'Senha'),
-                obscureText: true,
+                decoration: InputDecoration(
+                  labelText: 'Senha',
+                  suffixIcon: IconButton(
+                    icon: Icon(
+                      _obscurePassword
+                          ? Icons.visibility
+                          : Icons.visibility_off,
+                    ),
+                    onPressed: () {
+                      setState(() {
+                        _obscurePassword = !_obscurePassword;
+                      });
+                    },
+                  ),
+                ),
+                obscureText: _obscurePassword,
                 validator: (value) {
                   if (value == null || value.isEmpty) {
                     return 'Por favor, insira a senha';
@@ -98,7 +115,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 onPressed: _login,
                 child: Text('Entrar'),
               ),
-              SizedBox(height: 10),
+              SizedBox(height: 13),
               TextButton(
                 onPressed: _navigateToRegistrar,
                 child: Text('Não tem uma conta? Registre-se aqui'),
