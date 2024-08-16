@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 
 class TelaSolicitacaoSenha extends StatefulWidget {
   @override
@@ -7,19 +9,39 @@ class TelaSolicitacaoSenha extends StatefulWidget {
 
 class _TelaSolicitacaoSenhaState extends State<TelaSolicitacaoSenha> {
   final _formKey = GlobalKey<FormState>();
-  String _email = '';
+  String _telefone = '';
 
-  void _enviarEmailConfirmacao() {
+  Future<void> _enviarWhatsappConfirmacao() async {
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
-      // Simula o envio de um e-mail de confirmação
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('E-mail de confirmação enviado para $_email.')),
+      final String accountSid = 'US72fab60e762a2eed71c82ea05ea2997e';
+      final String authToken = 'e96c13a9b6faccfb7eea0801a0fb732a';
+      final String twilioNumber = 'whatsapp:19985658980';
+      
+      final url = Uri.parse('https://api.twilio.com/2010-04-01/Accounts/$accountSid/Messages.json');
+      final response = await http.post(
+        url,
+        headers: {
+          'Authorization': 'Basic ' + base64Encode(utf8.encode('$accountSid:$authToken')),
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        body: {
+          'From': twilioNumber,
+          'To': 'whatsapp:$_telefone',
+          'Body': 'Seu código de recuperação de senha é: 123456',
+        },
       );
-      Navigator.push(
-        context,
-        MaterialPageRoute(builder: (context) => TelaSolicitacaoSenha()),
-      );
+
+      if (response.statusCode == 201) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Mensagem enviada via WhatsApp para $_telefone.')),
+        );
+        Navigator.pop(context);
+      } else {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Falha ao enviar mensagem via WhatsApp.')),
+        );
+      }
     }
   }
 
@@ -39,26 +61,26 @@ class _TelaSolicitacaoSenhaState extends State<TelaSolicitacaoSenha> {
               children: [
                 TextFormField(
                   decoration: InputDecoration(
-                    labelText: 'Email',
+                    labelText: 'Telefone',
                     border: OutlineInputBorder(),
                   ),
                   validator: (value) {
                     if (value == null || value.isEmpty) {
-                      return 'Por favor, insira seu e-mail';
+                      return 'Por favor, insira seu telefone';
                     }
-                    if (!RegExp(r'\S+@\S+\.\S+').hasMatch(value)) {
-                      return 'Por favor, insira um e-mail válido';
+                    if (!RegExp(r'^\+\d{1,3}\d{1,14}$').hasMatch(value)) {
+                      return 'Por favor, insira um número de telefone válido';
                     }
                     return null;
                   },
                   onSaved: (value) {
-                    _email = value!;
+                    _telefone = value!;
                   },
                 ),
                 SizedBox(height: 16.0),
                 ElevatedButton(
-                  onPressed: _enviarEmailConfirmacao,
-                  child: Text('Enviar E-mail de Confirmação'),
+                  onPressed: _enviarWhatsappConfirmacao,
+                  child: Text('Enviar via WhatsApp'),
                 ),
               ],
             ),

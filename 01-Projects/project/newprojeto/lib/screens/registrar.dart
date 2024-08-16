@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert';
 import 'package:newprojeto/main.dart';
 
 class Registrar extends StatefulWidget {
@@ -15,15 +17,50 @@ class _RegistrarState extends State<Registrar> {
   bool _obscurePassword = true;
   bool _obscureConfirmPassword = true;
 
-  void _register() {
+  Future<void> _register() async {
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Usuário $_username registrado com sucesso!')),
-      );
-      Navigator.of(context).pushReplacement(
-        MaterialPageRoute(builder: (context) => MyApp()),
-      );
+
+      if (_password != _confirmPassword) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('As senhas não correspondem')),
+        );
+        return;
+      }
+
+      final Map<String, dynamic> userData = {
+        'nome': _username,
+        'telefone': _telefone,
+        'senha': _password,
+      };
+
+      try {
+        final response = await http.post(
+          Uri.parse('http://192.168.0.105:8080/usuario'),
+          headers: {'Content-Type': 'application/json'},
+          body: json.encode(userData),
+        );
+
+        print('Status Code: ${response.statusCode}');
+        print('Response Body: ${response.body}');
+
+        if (response.statusCode == 200 || response.statusCode == 201) {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text('Usuário $_username registrado com sucesso!')),
+          );
+          Navigator.of(context).pushReplacement(
+            MaterialPageRoute(builder: (context) => MyApp()),
+          );
+        } else {
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(content: Text('Falha ao registrar o usuário. Código: ${response.statusCode} - ${response.body}')),
+          );
+        }
+      } catch (e) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text('Erro na comunicação com o servidor: $e')),
+        );
+      }
     }
   }
 
@@ -48,7 +85,9 @@ class _RegistrarState extends State<Registrar> {
                   return null;
                 },
                 onSaved: (value) {
-                  _username = value!;
+                  setState(() {
+                    _username = value!;
+                  });
                 },
               ),
               TextFormField(
@@ -61,7 +100,9 @@ class _RegistrarState extends State<Registrar> {
                   return null;
                 },
                 onSaved: (value) {
-                  _telefone = value!;
+                  setState(() {
+                    _telefone = value!;
+                  });
                 },
               ),
               TextFormField(
@@ -88,7 +129,9 @@ class _RegistrarState extends State<Registrar> {
                   return null;
                 },
                 onSaved: (value) {
-                  _password = value!;
+                  setState(() {
+                    _password = value!;
+                  });
                 },
               ),
               SizedBox(height: 16),
@@ -113,13 +156,12 @@ class _RegistrarState extends State<Registrar> {
                   if (value == null || value.isEmpty) {
                     return 'Por favor, confirme a senha';
                   }
-                  if (value != _password) {
-                    return null;
-                  }
                   return null;
                 },
                 onSaved: (value) {
-                  _confirmPassword = value!;
+                  setState(() {
+                    _confirmPassword = value!;
+                  });
                 },
               ),
               SizedBox(height: 20),

@@ -1,7 +1,7 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
-import 'thank_you_screen.dart'; // Importar a tela de agradecimento
+import 'thank_you_screen.dart';
 
 class OsScreen extends StatefulWidget {
   final String bairro;
@@ -82,8 +82,6 @@ class _OsScreenState extends State<OsScreen> {
   }
 
   void _submit() {
-    // Aqui você pode adicionar a lógica para enviar os dados se necessário
-
     Navigator.pushReplacement(
       context,
       MaterialPageRoute(builder: (context) => ThankYouScreen()),
