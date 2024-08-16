@@ -23,14 +23,55 @@ class _NavigationBarAppState extends State<NavigationBarApp> {
     MessagesScreen(),
   ];
 
-  void _onItemTapped(int index) {
-    if (index == 4) {
-      _logout();
-    } else {
-      setState(() {
-        _selectedIndex = index;
-      });
+  Future<bool> _checkForUnsavedChanges() async {
+    final currentPage = _pages[_selectedIndex];
+
+    if (currentPage is WillPopScope) {
+      final willPop = await currentPage.onWillPop?.call() ?? true;
+      return willPop;
     }
+    return true;
+  }
+
+  Future<void> _onItemTapped(int index) async {
+    if (index == 4) {
+      _confirmLogout();
+    } else {
+      final hasUnsavedChanges = await _checkForUnsavedChanges();
+      if (hasUnsavedChanges) {
+        setState(() {
+          _selectedIndex = index;
+        });
+      }
+    }
+  }
+
+  void _confirmLogout() {
+    showDialog(
+      context: context,
+      barrierDismissible: false, // Prevents dismissal by tapping outside the dialog
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Confirmar Saída'),
+          content: Text('Você realmente deseja sair do aplicativo?'),
+          actions: <Widget>[
+            TextButton(
+              child: Text('Cancelar'),
+              onPressed: () {
+                Navigator.of(context).pop(); // Close the dialog
+              },
+            ),
+            TextButton(
+              child: Text('Sair'),
+              onPressed: () {
+                Navigator.of(context).pop(); // Close the dialog
+                _logout();
+              },
+            ),
+          ],
+        );
+      },
+    );
   }
 
   void _logout() {
