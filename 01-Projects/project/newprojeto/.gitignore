@@ -41,3 +41,6 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+
+10.87.207.4  Senai
+192.168.0.105 casa
