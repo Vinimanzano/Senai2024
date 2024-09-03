@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ViaCEP Autocomplete</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="script.js" defer></script>
+</head>
+<body>
+    <h2>Pesquisa por CEP</h2>
+    <form id="form">
+        <label for="cep">CEP:</label>
+            <input type="text" id="cep" name="cep" onblur="pesquisacep(this.value);">
+            <label for="logradouro">Logradouro:</label>
+            <input type="text" id="logradouro" name="logradouro">
+            <label for="bairro">Bairro:</label>
+            <input type="text" id="bairro" name="bairro">
+            <label for="cidade">Cidade:</label>
+            <input type="text" id="cidade" name="cidade">
+            <label for="uf">UF:</label>
+            <input type="text" id="uf" name="uf">
+            <label for="ibge">IBGE:</label>
+            <input type="text" id="ibge" name="ibge">
+        </form>
+
+</html>
