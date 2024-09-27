@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tela Principal do Professor</title>
+    <link rel="stylesheet" href="../css/principal.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Tela Principal do Professor</h1>
+            <p id="professorName">Bem-vindo, <span id="nomeProfessor">Professor Nome</span></p>
+            <button id="logoutButton">Sair</button>
+        </header>
+
+        <main>
+            <button id="cadastroButton">Cadastro de Turma</button>
+            <button id="atividadesButton">Atividades da Turma</button>
+            <div id="turmasList"></div>
+        </main>
+    </div>
+
+    <!-- Modal de Cadastro de Turma -->
+    <div id="cadastroModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Cadastro de Turma</h2>
+                <span class="close">&times;</span>
+            </div>
+            <div class="modal-body">
+                <input type="text" id="nomeTurma" placeholder="Nome da Turma" required>
+                <input type="text" id="cadastroTurma" placeholder="Cadastro da Turma" required>
+            </div>
+            <div class="modal-footer">
+                <button id="salvarTurma">Salvar</button>
+                <button id="cancelarTurma">Cancelar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de Atividades da Turma -->
+    <div id="atividadesModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Atividades da Turma</h2>
+                <span class="close" onclick="fecharModal('atividadesModal')">&times;</span>
+            </div>
+            <div class="modal-body" id="atividadesList">
+                <!-- As atividades serão adicionadas aqui dinamicamente -->
+            </div>
+            <div class="modal-footer">
+                <button onclick="fecharModal('atividadesModal')">Fechar</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de Confirmação de Logout -->
+    <div id="logoutModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Confirmação</h2>
+                <span class="close" onclick="fecharModal('logoutModal')">&times;</span>
+            </div>
+            <div class="modal-body">
+                <p>Você realmente deseja sair?</p>
+            </div>
+            <div class="modal-footer">
+                <button id="confirmLogout">Sim</button>
+                <button onclick="fecharModal('logoutModal')">Não</button>
+            </div>
+        </div>
+    </div>
+
+    <footer>
+        <p id="copyright"></p>
+    </footer>
+
+    <script src="../js/copyright.js"></script>
+    <script src="../js/principal.js"></script>
+</body>
+</html>
