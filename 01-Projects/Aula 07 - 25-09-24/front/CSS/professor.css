@@ -1,0 +1,38 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body{
+    background-color: black;
+    font-family: Arial, sans-serif;
+}
+
+.container{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;    
+    background-color: whitesmoke;
+}
+
+.professornome{
+    font-size: 40px;
+    margin-left: 10px;
+    font: bold;
+}
+
+.btn a button{
+    width: 100%;
+    padding: 10px;
+    background-color: gray;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.btn a button:hover{
+    background-color: #426a94;
+}
