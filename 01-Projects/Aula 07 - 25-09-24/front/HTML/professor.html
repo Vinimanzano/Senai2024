@@ -20,9 +20,61 @@
     </header>
 
     <main>
-        
+        <div>
+            <button class="turma" onclick="cadastrarTurma()">Cadastrar turma</button>
+        </div>
+
+        <table id="turmaTable">
+            <thead>
+                <tr>
+                    <th>Número</th>
+                    <th>Nome</th>
+                    <th>Ação</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>Turma de Matemática</td>
+                    <td>
+                        <button onclick="visualizarTurma(1)">Visualizar</button>
+                        <button onclick="excluirTurma(1)">Excluir</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>Turma de História</td>
+                    <td>
+                        <button onclick="visualizarTurma(2)">Visualizar</button>
+                        <button onclick="excluirTurma(2)">Excluir</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td>3</td>
+                    <td>Turma de Física</td>
+                    <td>
+                        <button onclick="visualizarTurma(3)">Visualizar</button>
+                        <button onclick="excluirTurma(3)">Excluir</button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+
+        <!-- Modal para cadastrar nova turma -->
+        <div id="turmaModal" class="modal">
+            <div class="modal-content">
+                <span class="close" onclick="fecharModal()">&times;</span>
+                <h2>Cadastrar Nova Turma</h2>
+                <form id="turmaForm">
+                    <label for="nomeTurma">Nome da Turma:</label>
+                    <input type="text" id="nomeTurma" name="nomeTurma" required>
+                    <button type="submit">Cadastrar</button>
+                </form>
+            </div>
+        </div>
     </main>
 
     <script src="../JS/professor.js"></script>
 </body>
+
 </html>

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../CSS/atividades.css">
+    <title>Atividades da Turma</title>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1 id="professorNome">Professor: </h1>
+            <button class="btn-voltar" onclick="voltar()">Voltar</button>
+        </header>
+        <main>
+            <h2 id="nomeTurma">Atividades da Turma: </h2>
+            <button class="btn-cadastrar" onclick="abrirModal()">Cadastrar Atividade</button>
+            <table class="atividades-table">
+                <thead>
+                    <tr>
+                        <th>Número</th>
+                        <th>Descrição</th>
+                    </tr>
+                </thead>
+                <tbody id="atividadeTable">
+                </tbody>
+            </table>
+        </main>
+        <div id="modalCadastrarAtividade" class="modal">
+            <div class="modal-content">
+                <span class="close" onclick="fecharModal()">&times;</span>
+                <h2>Cadastrar Atividade</h2>
+                <input type="text" id="atividadeDescricao" placeholder="Descrição da Atividade" required>
+                <button onclick="saveAtividade()">Salvar Atividade</button>
+            </div>
+        </div>
+    </div>
+    <script src="../JS/atividades.js"></script>
+</body>
+</html>

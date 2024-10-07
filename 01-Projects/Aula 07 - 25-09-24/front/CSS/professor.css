@@ -4,35 +4,180 @@
     box-sizing: border-box;
 }
 
-body{
-    background-color: black;
+body {
     font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
 }
 
-.container{
+header {
+    background-color: #333;
+    color: white;
+    padding: 10px 0;
+    text-align: center;
+}
+
+.container {
     display: flex;
     justify-content: space-between;
-    align-items: center;    
-    background-color: whitesmoke;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
 }
 
-.professornome{
-    font-size: 40px;
-    margin-left: 10px;
-    font: bold;
+.professornome {
+    font-size: 20px;
 }
 
-.btn a button{
-    width: 100%;
-    padding: 10px;
-    background-color: gray;
-    color: #fff;
+.btn {
+    margin-right: 20px;
+}
+
+#sair {
+    padding: 10px 20px;
+    background-color: #ff4d4d;
+    color: white;
     border: none;
-    border-radius: 5px;
-    font-size: 16px;
+    border-radius: 4px;
     cursor: pointer;
 }
 
-.btn a button:hover{
-    background-color: #426a94;
+#sair:hover {
+    background-color: #ff6666;
+}
+
+/* Estilos do main */
+main {
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: white;
+    border-radius: 5px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+
+button.turma {
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-bottom: 20px;
+}
+
+button.turma:hover {
+    background-color: #45a049;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+th, td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+th {
+    background-color: #f2f2f2;
+    font-weight: bold;
+}
+
+tr:hover {
+    background-color: #f5f5f5;
+}
+
+button {
+    padding: 8px 12px;
+    background-color: #007BFF;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-right: 5px;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+button.excluir {
+    background-color: #ff4d4d;
+}
+
+button.excluir:hover {
+    background-color: #ff6666;
+}
+
+/* Estilo para o modal */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 10% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 400px;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+h2 {
+    margin-top: 0;
+}
+
+label {
+    font-size: 16px;
+    margin-bottom: 10px;
+    display: block;
+}
+
+input[type="text"] {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+button[type="submit"] {
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+button[type="submit"]:hover {
+    background-color: #45a049;
 }
