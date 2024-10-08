@@ -1,12 +1,10 @@
 const URI = "http://localhost:8080/api/turma";
-let nome = ""; 
-let idProfessor = "";
+const nome = JSON.parse(window.localStorage.getItem("userData")).nome; 
+const idProfessor = JSON.parse(window.localStorage.getItem("userData")).id;
 
 try {
     const userData = JSON.parse(window.localStorage.getItem("userData"));
     if (userData && userData.nome && userData.id) { 
-        nome = userData.nome;
-        idProfessor = userData.id;
         const professornome = document.querySelector(".professornome");
         professornome.innerHTML = `Olá, ${nome}!`;
     } else {
@@ -75,7 +73,6 @@ document.getElementById("turmaForm").addEventListener("submit", async function (
         });
 
         if (response.ok) {
-            console.log("Turma cadastrada com sucesso");
             fecharModal();
             fetchTurmas();
         } else {
@@ -97,7 +94,6 @@ async function excluirTurma(id) {
         const response = await fetch(`${URI}/${idProfessor}/${id}`, { 
             method: 'DELETE',
         });
-
         if (response.ok) {
             console.log(`Turma com ID ${id} excluída com sucesso`);
             fetchTurmas();
@@ -106,7 +102,7 @@ async function excluirTurma(id) {
         }
     } catch (error) {
         console.error("Erro ao excluir turma:", error);
-        alert("Não foi possível excluir a turma. Tente novamente mais tarde.");
+        alert("Essa turma possui atividade e nao pode ser excluída!");
     }
 }
 
