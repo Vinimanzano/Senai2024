@@ -1,6 +1,6 @@
 const URI = "http://localhost:8080/api/turma";
 let nome = ""; 
-let idProfessor = ""; 
+let idProfessor = "";
 
 try {
     const userData = JSON.parse(window.localStorage.getItem("userData"));
@@ -24,7 +24,7 @@ function sair() {
 
 async function fetchTurmas() {
     try {
-        const response = await fetch(URI);
+        const response = await fetch(`${URI}/${idProfessor}`);
         if (!response.ok) {
             throw new Error(`Erro HTTP: ${response.status}`);
         }
@@ -89,7 +89,7 @@ document.getElementById("turmaForm").addEventListener("submit", async function (
 
 function visualizarTurma(id) {
     console.log(`Visualizar turma com ID: ${id}`);
-    window.location.href = `atividades.html`;
+    window.location.href = `atividades.html?id=${id}`;
 }
 
 async function excluirTurma(id) {

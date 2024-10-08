@@ -20,11 +20,10 @@ async function fetchAtividades() {
         }
 
         const atividades = await turmaResponse.json();
-        console.log(atividades);
 
         document.getElementById("nomeTurma").innerText = `Atividades da Turma: ${turmaId}`;
 
-        const tabela = document.querySelector("#atividadeTable tbody");
+        const tabela = document.querySelector("#atividadeTable");
         tabela.innerHTML = '';
 
         atividades.forEach((atividade, index) => {
