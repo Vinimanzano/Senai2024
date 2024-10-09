@@ -1,0 +1,137 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+    text-decoration: none;
+    list-style: none;
+    scroll-behavior: smooth;
+}
+
+:root{
+    --Branco: #FFFFFF;
+    --Azul: #0000FF;
+    --cinza: #707070;
+    --Black:#000000;
+    --WhiteMilk: rgb(255, 255, 255);
+    --AzulClaro: rgb(10, 120, 255);
+    --CinzaClaro: rgb(112, 112, 112);
+    --BlackEscuro: rgb(0, 0, 0);
+    --Roxo: #6E41DC;
+}
+
+body{
+    background-color: var(--Branco);
+    
+}
+
+header{
+    width: 100%;
+    height: 100px;
+    background-color: var(--WhiteMilk);
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+    background-color: var(--Black);
+}
+
+.menu{
+    display: flex;
+    gap: 20px;
+    list-style: none;
+    font-size: 20px;
+}
+
+
+.menu a{
+    color: var(--Branco);
+}
+
+.menu a:hover{
+    color: var(--Roxo);
+}
+
+.logo{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.logo h1{
+    color: var(--Branco);
+}
+
+.logo img{
+    width: 80px;
+    height: 80px;
+}
+
+main{
+    width: 100vw;
+    height: auto;
+    min-height: 100vh;
+
+    background-color: #707070;
+}
+
+main h2{
+    text-align: center;
+    font-size: 3rem;
+}
+
+main > div div:not(:nth-child(2)) {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+main > div div:nth-child(2) {
+    display: flex;
+    flex-direction: row-reverse;
+    justify-content: flex-end;
+    align-items: center;
+}
+
+main > div div:not(:nth-child(2)) p{
+    max-width: 500px;
+    word-wrap: break-word;
+    text-align: justify;
+    padding: 1rem;
+
+    border-top: 2px solid var(--WhiteMilk);
+    border-bottom: 2px solid var(--WhiteMilk);
+    border-left: 4px solid var(--WhiteMilk);
+}
+
+main > div div:nth-child(2) p{
+    max-width: 500px;
+    word-wrap: break-word;
+    text-align: justify;
+    padding: 1rem;
+
+    border-top: 2px solid var(--WhiteMilk);
+    border-bottom: 2px solid var(--WhiteMilk);
+    border-right: 4px solid var(--WhiteMilk);
+}
+
+footer {
+    background-color: var(--Black);
+    color: #fff;
+    text-align: center;
+    padding: 1rem 0;
+    bottom: 0;
+    width: 100%;
+}
+
+footer div i{
+    font-size: 1.4rem;
+    gap: 5%;
+    cursor: pointer;
+}
+
+footer i:hover {
+    color: #007bff;
+}
