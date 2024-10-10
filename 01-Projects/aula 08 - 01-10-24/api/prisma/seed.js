@@ -45,16 +45,16 @@ async function importAlocacao() {
     id: item.id,
     quantidade: item.quantidade,
     automovelId: item.automovel,
-    clienteId: item.area,
+    clienteId: item.cliente, 
     concessionariaId: item.concessionaria
   }));
+
+  console.log('Alocações a serem importadas:', alocacoes);
 
   await prisma.alocacao.createMany({
     data: alocacoes,
     skipDuplicates: true
   });
-
-  console.log('Alocações importadas com sucesso!');
 }
 
 async function main() {

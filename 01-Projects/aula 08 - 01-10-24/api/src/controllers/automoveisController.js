@@ -47,8 +47,30 @@ const update = async (req, res) => {
     }
 }
 
+const del = async (req, res) => {
+    const { id } = req.params;
+    try {
+        const automovel = await prisma.automovel.findUnique({
+            where: { id: parseInt(id) },
+        });
+
+        if (!automovel) {
+            return res.status(404).json({ erro: "Automóvel não encontrado" }).end();
+        }
+
+        await prisma.automovel.delete({
+            where: { id: parseInt(id) },
+        });
+
+        return res.status(200).json({ mensagem: "Automóvel deletado com sucesso" }).end();
+    } catch (error) {
+        return res.status(500).json({ erro: "Erro ao deletar automóvel" }).end();
+    }
+};
+
 module.exports = {
     read,
     create,
-    update
-}
+    update,
+    del
+};

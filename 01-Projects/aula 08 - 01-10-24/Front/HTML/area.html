@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Planta do Pátio</title>
+    <link rel="stylesheet" href="../CSS/area.css">
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <img src="../img/cars.png" alt="Logo">
+            <h1>Fábrica de Carros</h1>
+        </div>
+        <div>
+            <ul class="menu">
+                <li><a href="principal.html">Home</a></li>
+                <li><a href="area.html">Área</a></li>
+                <li><a href="venda.html">Venda</a></li>
+            </ul>
+        </div>
+    </header>
+
+    <div class="patio">
+        <div class="area area4" data-area="4">4</div>
+        <div class="area area3" data-area="3">3</div>
+        <div class="area area1" data-area="1">1</div>
+        <div class="area area2" data-area="2">2</div>
+        <div class="area area5" data-area="5">5</div>
+        <div class="area area7" data-area="7">7</div>
+        <div class="area area10" data-area="10">10</div>
+        <div class="area area6" data-area="6">6</div>
+        <div class="area area8" data-area="8">8</div>
+        <div class="area area9" data-area="9">9</div>
+        <div class="area area11" data-area="11">11</div>
+    </div>
+
+    <div id="modal-area" class="modal">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2 id="area-title"></h2>
+            <div id="car-count"></div>
+            <div id="empty-message" style="display: none;">Nenhum carro disponível nesta área.</div>
+            <div id="car-list"></div>
+        </div>
+    </div>
+
+    <script src="../JS/area.js"></script>
+</body>
+</html>

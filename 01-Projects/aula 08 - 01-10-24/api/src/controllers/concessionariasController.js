@@ -43,9 +43,32 @@ const update = async (req, res) => {
     }
 }
 
+const del = async (req, res) => {
+    const { id } = req.params;
+    try {
+        // Verifica se a concessionária existe
+        const concessionaria = await prisma.concessionaria.findUnique({
+            where: { id: parseInt(id) },
+        });
+
+        if (!concessionaria) {
+            return res.status(404).json({ erro: "Concessionária não encontrada" }).end();
+        }
+
+        // Deleta a concessionária
+        await prisma.concessionaria.delete({
+            where: { id: parseInt(id) },
+        });
+
+        return res.status(200).json({ mensagem: "Concessionária deletada com sucesso" }).end();
+    } catch (error) {
+        return res.status(500).json({ erro: "Erro ao deletar concessionária" }).end();
+    }
+};
+
 module.exports = {
     read,
     create,
-    update
-}
- 
+    update,
+    del
+};

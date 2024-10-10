@@ -43,8 +43,32 @@ const update = async (req, res) => {
     }
 }
 
+const del = async (req, res) => {
+    const { id } = req.params;
+    try {
+        // Verifica se o cliente existe
+        const cliente = await prisma.cliente.findUnique({
+            where: { id: parseInt(id) },
+        });
+
+        if (!cliente) {
+            return res.status(404).json({ erro: "Cliente não encontrado" }).end();
+        }
+
+        // Deleta o cliente
+        await prisma.cliente.delete({
+            where: { id: parseInt(id) },
+        });
+
+        return res.status(200).json({ mensagem: "Cliente deletado com sucesso" }).end();
+    } catch (error) {
+        return res.status(500).json({ erro: "Erro ao deletar cliente" }).end();
+    }
+};
+
 module.exports = {
     read,
     create,
-    update
-}
+    update,
+    del
+};

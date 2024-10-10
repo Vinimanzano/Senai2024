@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <link rel="stylesheet" href="../CSS/venda.css">
+    <title>Park & Drive</title>
+</head>
+<body>
+
+    <header>
+        <div class="logo">
+            <img src="../img/cars.png">
+            <h1>Fábrica de Carros</h1>
+        </div>
+        <div>
+            <ul class="menu">
+                <li><a href="principal.html">Home</a></li>
+                <li><a href="area.html">Área</a></li>
+                <li><a href="venda.html">Venda</a></li>
+        </div>   
+    </header>
+
+    <div class="modal-venda">
+        <div class="modal-header">
+            <h2 id="car-title">XYZ</h2> 
+            <button class="close-btn" onclick="fecharVenda()">X</button>
+        </div>
+        <div class="modal-body">
+            <label for="cliente">Cliente:</label>
+            <select id="cliente" onchange="verificarCampos()">
+            </select>
+
+            <label for="concessionaria">Concessionária:</label>
+            <select id="concessionaria" onchange="verificarCampos()">
+            </select>
+
+            <button id="confirmar-btn" class="confirmar-btn" disabled onclick="confirmarVenda()">Confirmar</button>
+        </div>
+    </div>
+    
+    <script src="../JS/venda.js"></script>
+</body>
+</html>

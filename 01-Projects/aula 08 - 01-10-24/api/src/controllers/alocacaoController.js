@@ -3,12 +3,27 @@ const prisma = new PrismaClient();
 
 const read = async (req, res) => {
     try {
-        const alocacoes = await prisma.alocacao.findMany();
-        return res.json(alocacoes);
+        const alocacao = await prisma.alocacao.findMany({
+            include: {
+                automovel: true,
+                cliente: true,
+                concessionaria: true,
+            },
+        });
+
+        const result = alocacao.map(alocacao => ({
+            id: alocacao.id,
+            quantidade: alocacao.quantidade,
+            automovel: alocacao.automovel,
+        }));
+
+        return res.json(result);
     } catch (error) {
-        return res.status(500).json({ erro: "Erro ao recuperar alocações" }).end();
+        console.error(error);
+        return res.status(500).json({ erro: "Erro ao recuperar alocações" });
     }
-}
+};
+
 
 const create = async (req, res) => {
     const { area, automovel, concessionaria, quantidade } = req.body;
@@ -51,8 +66,32 @@ const update = async (req, res) => {
     }
 }
 
+
+const del = async (req, res) => {
+    const { id } = req.params;
+    try {
+        const alocacao = await prisma.alocacao.findUnique({
+            where: { id: parseInt(id) },
+        });
+
+        if (!alocacao) {
+            return res.status(404).json({ erro: "Alocação não encontrada" }).end();
+        }
+
+        // Deleta a alocação
+        await prisma.alocacao.delete({
+            where: { id: parseInt(id) },
+        });
+
+        return res.status(200).json({ mensagem: "Alocação deletada com sucesso" }).end();
+    } catch (error) {
+        return res.status(500).json({ erro: "Erro ao deletar alocação" }).end();
+    }
+};
+
 module.exports = {
     read,
     create,
-    update
-}
+    update,
+    del
+};
