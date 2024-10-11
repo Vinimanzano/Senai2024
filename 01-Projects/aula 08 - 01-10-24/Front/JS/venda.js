@@ -1,5 +1,5 @@
 let areaAtual = 10;
-let modeloAtual = 'XYZ';
+let modeloAtual = 'Vendas';
 
 async function buscarClientes() {
     try {
@@ -11,7 +11,7 @@ async function buscarClientes() {
         return clientes;
     } catch (error) {
         console.error(error);
-        return []; // Retorna um array vazio em caso de erro
+        return [];
     }
 }
 
@@ -25,7 +25,7 @@ async function buscarConcessionarias() {
         return concessionarias;
     } catch (error) {
         console.error(error);
-        return []; // Retorna um array vazio em caso de erro
+        return [];
     }
 }
 
@@ -36,8 +36,8 @@ async function preencherClientes() {
     const clientes = await buscarClientes();
     clientes.forEach(cliente => {
         const option = document.createElement('option');
-        option.value = cliente.id; // Assumindo que cada cliente tem um ID
-        option.textContent = cliente.nome; // Assumindo que cada cliente tem um nome
+        option.value = cliente.id;
+        option.textContent = cliente.nome;
         clienteSelect.appendChild(option);
     });
 }
@@ -51,8 +51,8 @@ async function preencherConcessionarias() {
     if (concessionariasDaArea.length > 0) {
         concessionariasDaArea.forEach(concessionaria => {
             const option = document.createElement('option');
-            option.value = concessionaria.id; // Assumindo que cada concessionária tem um ID
-            option.textContent = concessionaria.nome; // Assumindo que cada concessionária tem um nome
+            option.value = concessionaria.id;
+            option.textContent = concessionaria.nome;
             concessionariaSelect.appendChild(option);
         });
     } else {
