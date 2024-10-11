@@ -1,96 +1,83 @@
-const mostrarDetalhesArea = async (areaNum) => {
-    const modalArea = document.getElementById('modal-area');
-    const areaTitle = document.getElementById('area-title');
-    const carList = document.getElementById('car-list');
-    const carCount = document.getElementById('car-count');
-    const emptyMessage = document.getElementById('empty-message');
-    const areas = document.querySelectorAll('.area');
+const modalArea = document.getElementById("modal-area");
+const areaTitle = document.getElementById("area-title");
+const carList = document.getElementById("car-list");
+const carCount = document.getElementById("car-count");
+const emptyMessage = document.getElementById("empty-message");
+const areas = document.querySelectorAll(".area");
+var listaCarros = [];
+
+areas.forEach((area) => {
+  area.addEventListener("click", async (e) => {
+    listaCarros = [];
+    const numAreaClicada = area.getAttribute("data-area");
+    deixarAreaAzul(numAreaClicada);
+    openModal();
+
+    areaTitle.textContent = `Área ${numAreaClicada}`;
+    carList.innerHTML = '';
 
     try {
-        // Fazendo a requisição para a API
-        const response = await fetch('http://localhost:3000/alocacao');
-        const alocacoes = await response.json();
+      const response = await fetch(
+        `http://localhost:3000/alocacao/${numAreaClicada}`
+      );
+      const alocacoes = await response.json();
 
-        // Exibindo os dados no console para verificação
-        console.log(alocacoes);
+      alocacoes.forEach((e) => {
+        listaCarros.push(e.automovel);
+      });
 
-        // Filtrando a alocação correspondente à área selecionada
-        const alocacao = alocacoes.find(a => a.id === parseInt(areaNum));
+      console.log(listaCarros);
 
-        // Atualizando o título da área
-        areaTitle.textContent = `Área ${areaNum}`;
-        carList.innerHTML = ''; // Limpa a lista de carros
+      if(listaCarros.length == 0) {
+        emptyMessage.style.display = 'block'; 
+        carCount.textContent = '';
+        return;
+      }
 
-        // Atualizando as cores das áreas
-        areas.forEach(area => {
-            area.style.backgroundColor = area.getAttribute('data-area') === areaNum ? 'blue' : 'gray';
+      carCount.textContent = `Quantidade de carros nesta área: ${listaCarros.length}`;
+      emptyMessage.style.display = 'none'; 
+
+      listaCarros.forEach((carro) => {
+        const carItem = document.createElement("div");
+        carItem.classList.add("car-item");
+        carItem.innerHTML = `
+                <strong>Modelo: ${carro.modelo}</strong><br>
+                <strong>Preço: R$${carro.preco.toFixed(2)}</strong><br> 
+                <button class="sell-button">Vender</button>
+            `;
+        carList.appendChild(carItem);
+
+        const sellButton = carItem.querySelector(".sell-button");
+        sellButton.addEventListener("click", () => {
+          window.location.href = "venda.html";
         });
-
-        // Verificando se a alocação existe e se possui automóveis
-        if (alocacao && alocacao.automovel && alocacao.automovel.length > 0) {
-            carCount.textContent = `Quantidade de carros nesta área: ${alocacao.quantidade}`;
-            emptyMessage.style.display = 'none'; 
-
-            // Exibir detalhes dos automóveis
-            alocacao.automovel.forEach(automovel => {
-                const carItem = document.createElement('div');
-                carItem.classList.add('car-item');
-                carItem.innerHTML = `
-                    <strong>Modelo:</strong> ${automovel.modelo}<br>
-                    <strong>Preço:</strong> R$ ${automovel.preco.toFixed(2)}<br> 
-                    <strong>Cliente:</strong> ${automovel.cliente ? automovel.cliente.nome : 'N/A'}<br>
-                    <strong>Concessionária:</strong> ${automovel.concessionaria ? automovel.concessionaria.nome : 'N/A'}<br>
-                    <button class="sell-button">Vender</button>
-                `;
-
-                // Adicionando evento de clique para o botão "Vender"
-                const sellButton = carItem.querySelector('.sell-button');
-                sellButton.addEventListener('click', () => {
-                    // Adicione a lógica de venda aqui
-                    alert(`Vender ${automovel.modelo}`);
-                });
-
-                carList.appendChild(carItem);
-            });
-        } else {
-            emptyMessage.style.display = 'block'; 
-            carCount.textContent = '';
-        }
-
-        // Mostrar o modal
-        modalArea.style.display = 'block';
-
+      });
     } catch (error) {
-        console.error('Erro ao buscar alocações:', error);
+      console.log("Erro ao buscar automoveis da area!", error);
     }
-};
-
-// Função para fechar o modal
-const closeModal = () => {
-    const modalArea = document.getElementById('modal-area');
-    modalArea.style.display = 'none';
-
-    // Resetando as cores das áreas
-    document.querySelectorAll('.area').forEach(area => {
-        area.style.backgroundColor = 'gray';
-    });
-};
-
-// Adicionando o evento de clique nas áreas
-document.querySelectorAll('.area').forEach(area => {
-    area.addEventListener('click', () => {
-        const areaNum = area.getAttribute('data-area');
-        mostrarDetalhesArea(areaNum);
-    });
+  });
 });
 
-// Evento de clique para fechar o modal
+const closeModal = () => {
+    modalArea.style.display = 'none';
+
+    document.querySelectorAll('.area').forEach(area => {
+      area.style.backgroundColor = 'gray';
+    });
+};
+
+function openModal() {
+  modalArea.style.display = 'block';
+}
+
 document.querySelector('.close').addEventListener('click', closeModal);
 
-// Fechando o modal ao clicar fora dele
 window.onclick = function(event) {
-    const modalArea = document.getElementById('modal-area');
-    if (event.target === modalArea) {
-        closeModal();
-    }
+  if (event.target === modalArea) {
+      closeModal();
+  }
 };
+
+function deixarAreaAzul(area) {
+  document.querySelector(`.area${area}`).style.backgroundColor = 'blue';
+}

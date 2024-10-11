@@ -27,6 +27,7 @@ CREATE TABLE `Concessionaria` (
 CREATE TABLE `Alocacao` (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
     `quantidade` INTEGER NOT NULL,
+    `areaId` INTEGER NOT NULL,
     `automovelId` INTEGER NOT NULL,
     `clienteId` INTEGER NOT NULL,
     `concessionariaId` INTEGER NOT NULL,

@@ -46,7 +46,6 @@ const update = async (req, res) => {
 const del = async (req, res) => {
     const { id } = req.params;
     try {
-        // Verifica se a concessionária existe
         const concessionaria = await prisma.concessionaria.findUnique({
             where: { id: parseInt(id) },
         });
@@ -55,7 +54,6 @@ const del = async (req, res) => {
             return res.status(404).json({ erro: "Concessionária não encontrada" }).end();
         }
 
-        // Deleta a concessionária
         await prisma.concessionaria.delete({
             where: { id: parseInt(id) },
         });

@@ -22,8 +22,11 @@ router.put('/concessionarias/:id', concessionariasController.update);
 router.delete('/concessionarias/:id', concessionariasController.del);
 
 router.get('/alocacao', alocacaoController.read);
+router.get('/alocacao/:area', alocacaoController.readByArea);
 router.post('/alocacao', alocacaoController.create);
 router.put('/alocacao/:id', alocacaoController.update);
 router.delete('/alocacao/:id', alocacaoController.del);
+
+
 
 module.exports = router;

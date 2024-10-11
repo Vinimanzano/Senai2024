@@ -76,8 +76,8 @@ header {
 
 .patio {
     display: grid;
-    grid-template-columns: repeat(3, 1fr); /* 3 colunas */
-    grid-template-rows: repeat(4, 1fr); /* 4 linhas */
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(4, 1fr);
     gap: 10px;
     width: 80vw;
     height: 80vh;
@@ -101,15 +101,15 @@ header {
 
 .modal-content {
     background-color: var(--Branco);
-    margin: auto;
+    margin: 15% auto;
     padding: 20px;
-    border: 1px solid #888;
+    border: 1px solid var();
+    color: var(--cinza);
+    border-radius: 7px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
     width: 80%;
     max-width: 600px;
-    position: absolute;
-    top: 50%; 
-    left: 50%;
-    transform: translate(-50%, -50%);
+    
 }
 
 .active-area {
@@ -135,6 +135,15 @@ header {
     border: 1px solid #ccc;
     padding: 10px;
     margin: 5px 0;
+}
+
+.sell-button{
+    background-color: var(--Roxo);
+    color: var(--Branco);
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
 }
 
 #empty-message {

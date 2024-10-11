@@ -43,6 +43,7 @@ async function importConcessionarias() {
 async function importAlocacao() {
   const alocacoes = alocacao_json.map(item => ({
     id: item.id,
+    areaId: item.area,
     quantidade: item.quantidade,
     automovelId: item.automovel,
     clienteId: item.cliente, 

@@ -22,7 +22,7 @@
 
 body{
     background-color: var(--Branco);
-    
+    overflow-x: hidden;
 }
 
 header{
