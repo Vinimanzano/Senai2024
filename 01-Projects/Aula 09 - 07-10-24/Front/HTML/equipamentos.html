@@ -41,10 +41,13 @@
                     <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Velit commodi tenetur incidunt deleniti
                         quia minus consequuntur voluptate eius asperiores enim porro labore ducimus, molestiae modi
                         quasi odio adipisci fugit architecto.</p>
-                    <div class="all-btn">
-                        <button class="comment" onclick="modalComment()" id="comment"><i class="bi bi-chat-right-text-fill"></i></button>
-                        <button class="del" id="del"><i class="bi bi-trash3-fill"></i></button>
-                    </div>
+                        <div class="all" data-id="1">
+                            <div class="all-btn">
+                                <button class="comment"><i class="bi bi-chat-right-text-fill"></i></button>
+                                <button class="del"><i class="bi bi-trash3-fill"></i></button>
+                            </div>
+                        </div>
+                        
                 </div>
             </div>
 
@@ -109,16 +112,25 @@
                 </div>
             </div>
         </div>
-        
-        <div class="modal_comment none">
+
+        <div class="modal_equip none">
             <h3>Cadastro de Equipamentos</h3>
-            <form>
-                
-                <input type="text" placeholder="Nome do Equipamento">
-                <input type="text" placeholder="Imagem do Equipamento">
-                <input type="text" placeholder="Descrição do Equipamento">
+            <form class="form">
+                <button class="close" id="CloseModal">X</button>
+                <input type="text" placeholder="Nome">
+                <input type="text" placeholder="Endereço da imagem">
+                <input type="text" placeholder="Descrição">
                 <input type="checkbox" name="checkbox" id="checkbox">
                 <input type="submit" value="Cadastrar">
+            </form>
+        </div>
+
+        <div>
+            <form class="modal_comments none">
+                <h3>Comentários</h3>
+                <input type="text" placeholder="Nome">
+                <input type="text" placeholder="Comentario">
+                <input type="submit" value="Adicionar Comentario">
             </form>
         </div>
 

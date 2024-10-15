@@ -37,7 +37,7 @@ const update = async (req, res) => {
 const del = async (req, res) => {
     try {
         const { id } = req.params;
-        const result = await prisma.equipamentos.delete({
+        const result = await prisma.equipamentos.del({
             where: { id: Number(id) }
         });
         res.status(200).json(result);
@@ -45,6 +45,7 @@ const del = async (req, res) => {
         res.status(500).json({ error: error.message });
     }
 };
+
 
 
 module.exports = {
