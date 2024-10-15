@@ -1,0 +1,179 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+header{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #44babc;
+    padding: 20px;
+
+}
+
+.btn-equipamento{
+    display: flex;
+    background: none;  
+    border: none;
+    outline: none;
+    cursor: pointer;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #00fbff;
+}
+
+.sair{
+    display: flex;
+    gap: 20px;
+    font-size: 2rem;
+}
+
+header img{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    left: 300px;
+}
+
+main{
+    width: 97vw;
+    height: auto;
+    min-height: 100vh;
+
+    background-color: #ffffff;
+    display: flex;
+    gap: 30px;
+    flex-direction: column;
+
+    margin-top: 15px;
+}
+
+main > div div:not(:nth-child(2)) p{
+    max-width: 500px;
+    word-wrap: break-word;
+    text-align: justify;
+    padding: 1rem;
+
+    border-top: 2px solid var(--WhiteMilk);
+    border-bottom: 2px solid var(--WhiteMilk);
+    border-left: 4px solid var(--WhiteMilk);
+}
+
+main > div div:nth-child(2) p{
+    max-width: 500px;
+    word-wrap: break-word;
+    text-align: justify;
+    padding: 1rem;
+}
+
+main > div div:nth-child(2) img{
+    max-width: 500px;
+    word-wrap: break-word;
+    text-align: justify;
+    padding: 1rem;
+}
+
+main div div {
+    display: flex;
+    gap: 1rem;
+}
+
+.imgg{
+    width: 200px;
+    height: 150px;
+    left: 30px;
+    border:1.3px solid black;
+}
+
+.comment{
+    display: flex;
+    background: none;  
+    border: none;
+    outline: none;
+    cursor: pointer;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #000000;
+}
+
+.del{
+    display: flex;
+    background: none;  
+    border: none;
+    outline: none;
+    cursor: pointer;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #000000;
+}
+
+.all{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.all-btn{
+    gap: 15px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    left: 30px;
+}
+
+.modal_comment{
+    position: fixed;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 40%;
+    height: 50%;
+    overflow: auto;
+    background-color: rgb(255,0,0);
+
+    padding: 10px;
+
+    z-index: 9999;
+}
+
+.modal_comment form {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: flex-start;
+}
+
+.modal_comment form input{
+    width: 50%;
+    height: 30px;
+
+    
+    margin-top: 10px;
+    margin-bottom: 10px;
+    padding: 10px;
+}
+
+.overlay {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+
+    background-color: rgba(0,0,0,0.5);
+
+    z-index: 999;
+}
+
+.none {
+    display: none;
+}
