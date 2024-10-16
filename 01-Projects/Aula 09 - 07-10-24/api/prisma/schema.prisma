@@ -38,11 +38,12 @@ model equipamentos {
 }
 
 model comentarios {
-  id  Int @id @default(autoincrement())
-  comentario  String
-  equipamentoId equipamentos @relation(fields: [equipamento], references: [id])
-  equipamento Int
-  perfilId perfis @relation(fields: [perfil], references: [id])
-  perfil  Int
-  data  DateTime
+  id           Int          @id @default(autoincrement())
+  comentario   String
+  equipamento  Int
+  perfil       Int
+  data         DateTime      @default(now())
+
+  equipamentos equipamentos @relation(fields: [equipamento], references: [id])
+  perfis       perfis       @relation(fields: [perfil], references: [id])
 }

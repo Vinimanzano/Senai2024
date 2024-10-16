@@ -1,20 +1,19 @@
-*{
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
     font-family: 'Poppins', sans-serif;
-
     scroll-behavior: smooth;
     text-decoration: none;
 }
 
-body{
+body {
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
-header{
+header {
     display: flex;
     flex-direction: row;
     width: 100%;
@@ -22,10 +21,9 @@ header{
     align-items: center;
     background-color: #44babc;
     padding: 20px;
-
 }
 
-.btn-equipamento{
+.btn-equipamento {
     display: flex;
     background: none;  
     border: none;
@@ -33,58 +31,46 @@ header{
     cursor: pointer;
     font-size: 1.5rem;
     font-weight: 700;
-    color: #00fbff
+    color: #00fbff;
 }
 
-.voltar{
+.voltar {
     display: flex;
     font-size: 2rem;
     color: #00fbff;
 }
 
-header img{
+header img {
     display: flex;
     justify-content: center;
     align-items: center;
-    left: 300px;
+    max-width: 200px;
+    width: 100%;
 }
 
-main{
+main {
     width: 97vw;
     height: auto;
     min-height: 100vh;
-
     background-color: #ffffff;
     display: flex;
     gap: 30px;
     flex-direction: column;
-
     margin-top: 15px;
 }
 
-main > div div:not(:nth-child(2)) p{
-    max-width: 500px;
-    word-wrap: break-word;
-    text-align: justify;
-    padding: 1rem;
-
-    border-top: 2px solid var(--WhiteMilk);
-    border-bottom: 2px solid var(--WhiteMilk);
-    border-left: 4px solid var(--WhiteMilk);
-}
-
-main > div div:nth-child(2) p{
+main > div div:not(:nth-child(2)) p,
+main > div div:nth-child(2) p {
     max-width: 500px;
     word-wrap: break-word;
     text-align: justify;
     padding: 1rem;
 }
 
-main > div div:nth-child(2) img{
+main > div div:nth-child(2) img {
     max-width: 500px;
-    word-wrap: break-word;
-    text-align: justify;
-    padding: 1rem;
+    width: 100%;
+    height: auto;
 }
 
 .div-info-equip {
@@ -92,14 +78,14 @@ main > div div:nth-child(2) img{
     gap: 1rem;
 }
 
-.imgg{
+.imgg {
     width: 200px;
     height: 150px;
-    left: 30px;
-    border:1.3px solid black;
+    border: 1.3px solid black;
 }
 
-.btn-comment{
+.btn-comment,
+.del {
     display: flex;
     background: none;  
     border: none;
@@ -110,28 +96,44 @@ main > div div:nth-child(2) img{
     color: #000000;
 }
 
-.del{
-    display: flex;
-    background: none;  
-    border: none;
-    outline: none;
-    cursor: pointer;
-    font-size: 1.5rem;
-    font-weight: 700;
-    color: #000000;
-}
-
-.all{
+.all {
     display: flex;
     flex-direction: column;
     gap: 10px;
 }
 
-.all-btn{
+.all-btn {
     gap: 15px;
     display: flex;
     justify-content: flex-start;
     align-items: center;
-    left: 30px;
 }
 
+@media (max-width: 768px) {
+    header {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 10px;
+    }
+
+    .btn-equipamento {
+        font-size: 1.2rem;
+    }
+
+    .voltar {
+        font-size: 1.5rem;
+    }
+
+    main {
+        gap: 15px;
+    }
+
+    .imgg {
+        width: 100%;
+        height: auto;
+    }
+
+    main > div {
+        padding: 0 10px;
+    }
+}

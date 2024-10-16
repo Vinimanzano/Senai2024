@@ -12,11 +12,28 @@ var listaequip = [];
 
 function verificarUsuario() {
     if (user.perfilId == 1) {
-        voltar.innerHTML = `<a href="login.html"><i class="bi bi-box-arrow-in-right"></i></a>`
-        fetchEquipamentos();
+        voltar.innerHTML = `<a href="login.html"><i class="bi bi-box-arrow-in-right"></i></a>`;
     }
-
     fetchEquipamentos();
+}
+
+async function fetchEquipamentos() {
+    listaequip = [];
+    try {
+        const response = await fetch('http://localhost:3000/equipamentos');
+        const data = await response.json();
+        data.forEach((e) => {
+            listaequip.push(e);
+        });
+
+        if (user.perfilId == 1) {
+            renderEquipamentosUsuarioComum();
+        } else {
+            renderEquipamentos();
+        }
+    } catch (error) {
+        console.error('Erro ao buscar equipamentos:', error);
+    }
 }
 
 
@@ -77,7 +94,7 @@ function renderEquipamentosUsuarioComum() {
                             ${e.descricao}
                         </p>
                         <div class="all-btn">
-                            <button class="btn-comment" id="btn-comment"><i class="bi bi-chat-right-text-fill"></i></button>
+                            <button class="btn-comment" id="btn-comment" onclick="comentario()"><i class="bi bi-chat-right-text-fill"></i></button>
                         </div>
                     </div>
                 </div>
