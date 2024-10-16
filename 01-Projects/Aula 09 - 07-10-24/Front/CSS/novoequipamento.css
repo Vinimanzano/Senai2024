@@ -1,0 +1,126 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+body{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+
+    gap: 200px;
+}
+
+header{
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #44babc;
+    padding: 20px;
+
+}
+
+.btn-equipamento{
+    display: flex;
+    background: none;  
+    border: none;
+    outline: none;
+    cursor: pointer;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #00fbff
+}
+
+.sair{
+    display: flex;
+    font-size: 2rem;
+    color: #00fbff;
+}
+
+header img{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    left: 300px;
+}
+
+main{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 40%;
+    height: 40%;
+    padding: 20px;
+    gap: 30px;
+}
+
+.novoequip{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 25px;
+    background-color: #fff;
+    width: 350px;
+    height: 450px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 25px;
+}
+
+input{
+    width: 300px;
+    height: 40px;
+    border-radius: 10px;
+    border: none;
+    background-color: #f0f2f5;
+    padding: 10px;
+}
+
+input ::placeholder{
+    color: #000;
+}
+
+#checkbox{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 20px;
+    height: 20px;
+    border-radius: 5px;
+    border: none;
+    background-color: #f0f2f5;
+
+    position: absolute;
+    top: 67%;
+    left: 43%;
+    margin: 0;
+}
+
+#submit{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    
+    margin-top: 10%;
+}
+
+#submit:hover{
+    background-color: #bcbec2;
+}
+
+

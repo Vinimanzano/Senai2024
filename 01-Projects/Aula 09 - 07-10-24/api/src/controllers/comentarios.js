@@ -11,15 +11,28 @@ const read = async (req, res) => {
 }
 
 const create = async (req, res) => {
-    try{
+    const { comentario, equipamentoId, perfilId } = req.body;
+
+    if (!comentario || !equipamentoId || !perfilId) {
+        return res.status(400).json({ error: 'Todos os campos são obrigatórios.' });
+    }
+
+    try {
         const result = await prisma.comentarios.create({
-            data: req.body
+            data: {
+                comentario,
+                equipamentoId,
+                perfilId,
+                data: new Date()
+            }
         });
-        res.status(200).json(result);
+        res.status(201).json(result);
     } catch (error) {
+        console.error('Erro ao adicionar comentário:', error);
         res.status(500).json({ error: error.message });
-    }    
-}
+    }
+};
+
 
 const update = async (req, res) => {
     try{

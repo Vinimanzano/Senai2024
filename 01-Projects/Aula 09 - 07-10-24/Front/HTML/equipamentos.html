@@ -4,139 +4,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Equipamentos</title>
-</head>
-
-<body>
-
-</body>
-
-</html>
-<!DOCTYPE html>
-<html lang="en">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <link rel="stylesheet" href="../CSS/equipamentos.css">
     <title>Equipamentos</title>
 </head>
 
-<body>
+<body onload="verificarUsuario()">
     <header>
         <img src="../assets/techman.png">
-        <div class="sair">
-            <button class="btn-equipamento">Novo Equipamentos</button>
-            <a href="login.html"><i class="bi bi-box-arrow-in-right"></i></a>
+        <div class="voltar">
+            <a href="novoequipamento.html"><button class="btn-equipamento">Novo Equipamentos</button></a>
+            <a href="login.html" onclick="limparLocalStorage()"><i class="bi bi-box-arrow-in-right"></i></a>
         </div>
     </header>
 
     <main>
-
-        <div>
-            <div>
-                <img src="../assets/Torno_Mecanico_500mm.png" class="imgg">
-                <div class="all">
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Velit commodi tenetur incidunt deleniti
-                        quia minus consequuntur voluptate eius asperiores enim porro labore ducimus, molestiae modi
-                        quasi odio adipisci fugit architecto.</p>
-                        <div class="all" data-id="1">
-                            <div class="all-btn">
-                                <button class="comment"><i class="bi bi-chat-right-text-fill"></i></button>
-                                <button class="del"><i class="bi bi-trash3-fill"></i></button>
-                            </div>
-                        </div>
-                        
-                </div>
-            </div>
-
-        </div>
-
-        <div>
-            <div>
-                <img src="../assets/Teclado_Microsoft.png" class="imgg">
-                <div class="all">
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Velit commodi tenetur incidunt deleniti
-                        quia minus consequuntur voluptate eius asperiores enim porro labore ducimus, molestiae modi
-                        quasi odio adipisci fugit architecto.</p>
-                    <div class="all-btn">
-                        <button class="comment" id="comment"><i class="bi bi-chat-right-text-fill"></i></button>
-                        <button class="del" id="del"><i class="bi bi-trash3-fill"></i></button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div>
-            <div>
-                <img src="../assets/Mouse_Razer.png" class="imgg">
-                <div class="all">
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Velit commodi tenetur incidunt deleniti
-                        quia minus consequuntur voluptate eius asperiores enim porro labore ducimus, molestiae modi
-                        quasi odio adipisci fugit architecto.</p>
-                    <div class="all-btn">
-                        <button class="comment" id="comment"><i class="bi bi-chat-right-text-fill"></i></button>
-                        <button class="del" id="del"><i class="bi bi-trash3-fill"></i></button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div>
-            <div>
-                <img src="../assets/Intel_Core_i9.png" class="imgg">
-                <div class="all">
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Velit commodi tenetur incidunt deleniti
-                        quia minus consequuntur voluptate eius asperiores enim porro labore ducimus, molestiae modi
-                        quasi odio adipisci fugit architecto.</p>
-                    <div class="all-btn">
-                        <button class="comment" id="comment"><i class="bi bi-chat-right-text-fill"></i></button>
-                        <button class="del" id="del"><i class="bi bi-trash3-fill"></i></button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div>
-            <div>
-                <img src="../assets/Monitor_Dell.png" class="imgg">
-                <div class="all">
-                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Velit commodi tenetur incidunt deleniti
-                        quia minus consequuntur voluptate eius asperiores enim porro labore ducimus, molestiae modi
-                        quasi odio adipisci fugit architecto.</p>
-                    <div class="all-btn">
-                        <button class="comment" id="comment"><i class="bi bi-chat-right-text-fill"></i></button>
-                        <button class="del" id="del"><i class="bi bi-trash3-fill"></i></button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="modal_equip none">
-            <h3>Cadastro de Equipamentos</h3>
-            <form class="form">
-                <button class="close" id="CloseModal">X</button>
-                <input type="text" placeholder="Nome">
-                <input type="text" placeholder="Endereço da imagem">
-                <input type="text" placeholder="Descrição">
-                <input type="checkbox" name="checkbox" id="checkbox">
-                <input type="submit" value="Cadastrar">
-            </form>
-        </div>
-
-        <div>
-            <form class="modal_comments none">
-                <h3>Comentários</h3>
-                <input type="text" placeholder="Nome">
-                <input type="text" placeholder="Comentario">
-                <input type="submit" value="Adicionar Comentario">
-            </form>
-        </div>
-
     </main>
-
-    <div class="overlay none"></div>
 
     <script src="../JS/equipamentos.js"></script>
 </body>

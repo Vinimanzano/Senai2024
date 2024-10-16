@@ -21,7 +21,7 @@ CREATE TABLE `equipamentos` (
     `equipamento` VARCHAR(191) NOT NULL,
     `imagem` VARCHAR(191) NOT NULL,
     `descricao` VARCHAR(191) NOT NULL,
-    `ativo` BOOLEAN NOT NULL,
+    `ativo` VARCHAR(191) NOT NULL,
     `data` DATETIME(3) NOT NULL,
 
     PRIMARY KEY (`id`)

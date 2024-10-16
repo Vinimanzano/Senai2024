@@ -1,42 +1,42 @@
 [
     {
         "id": 1,
-        "equipamento": "Torno Mecçnico 500mm Modelo BV20L 220V - TTM520 - Tander",
+        "equipamento": "Torno Mecânico 500mm Modelo BV20L 220V - TTM520 - Tander",
         "imagem": "Torno_Mecanico_500mm.png",
-        "descricao": "O Torno Mecçnico Tander TTM520 ç uma ferramenta utilizada por vçrios profissionais na confecão e acabamento de inçmeras peças metçlicas, tais como: eixos, polias, pinos, roscas, peças cilçndricas internas e externas, cones, esferas, entre outros. Este torno vem com motor monofçsico de 220V e 550W de potçncia, o que lhe confere maior torque e vida çtil, menor consumo de energia e baixo çndice de manutenão. Possui interruptor magnçtico com a função de travagem de emergçncia, rotação frente/reversa e a função de proteção ao torno e aos componentes elétricos.",
-        "ativo": true,
+        "descricao": "O Torno Mecânico Tander TTM520 é uma ferramenta utilizada por diversos profissionais na confecção e acabamento de inúmeras peças metálicas, tais como eixos, polias, pinos, roscas, peças cilíndricas internas e externas, cones, esferas, entre outros. Este torno vem com motor monofásico de 220V e 550W de potência, o que lhe confere maior torque e vida útil, menor consumo de energia e baixo índice de manutenção. Possui interruptor magnético com a função de travagem de emergência, rotação frente/reversa e a função de proteção ao torno e aos componentes elétricos.",
+        "ativo": "ativo",
         "data": "2019-10-01T14:54:20.873Z"
     },
     {
         "id": 2,
         "equipamento": "Processador Intel Core i9-7920X Skylake, Cache 16.5MB, 2.9GHz (4.3GHz Max Turbo), LGA 2066 - BX80673I97920X",
         "imagem": "Intel_Core_i9.png",
-        "descricao": "Com esse processador inovador e incrçvel vocç desfruta ao mçximo o verdadeiro potencial do seu computador e desfruta da mais pura velocidade. Maximize o seu desempenho seja trabalhando, jogando, navegando ou assistindo o seu filme preferido, com esse processador vocç pode tudo!",
-        "ativo": true,
+        "descricao": "Com esse processador inovador e incrível, você desfruta ao máximo o verdadeiro potencial do seu computador e experimenta a mais pura velocidade. Maximize o seu desempenho, seja trabalhando, jogando, navegando ou assistindo ao seu filme preferido; com esse processador, você pode tudo!",
+        "ativo": "ativo",
         "data": "2019-10-01T15:00:20.873Z"
     },
     {
         "id": 3,
-        "equipamento": "Monitor, Dell, U2518D, UltraSharp, Preto e Suporte em Alumçnio, 25\"",
+        "equipamento": "Monitor Dell U2518D, UltraSharp, Preto com Suporte em Alumínio, 25",
         "imagem": "Monitor_Dell.png",
-        "descricao": "Dç vida ao seu trabalho com uma tela de 25 polegadas quase sem bordas que conta com detalhes em cores vçvidas e consistentes graças a tecnologia hdr, resoluão qhd e çngulo de visço ultra-amplo. Aumente sua performance com os recursos dell display manager, dell easy arrange e trabalhe confortavelmente graça a um suporte totalmente ajustçvel e recurso confortview.",
-        "ativo": false,
+        "descricao": "Dê vida ao seu trabalho com uma tela de 25 polegadas quase sem bordas, que conta com detalhes em cores vívidas e consistentes, graças à tecnologia HDR, resolução QHD e ângulo de visão ultra-amplo. Aumente sua performance com os recursos Dell Display Manager, Dell Easy Arrange e trabalhe confortavelmente graças a um suporte totalmente ajustável e ao recurso ComfortView.",
+        "ativo": "desativo",
         "data": "2018-10-01T10:00:20.000Z"
     },
     {
         "id": 4,
-        "equipamento": "Mouse Gamer Razer Deathadder Essential çptico 5 Botçes 4G 6.400 DPI",
+        "equipamento": "Mouse Gamer Razer Deathadder Essential Óptico, 5 Botões, 4G, 6.400 DPI",
         "imagem": "Mouse_Razer.png",
-        "descricao": "Nada melhor do que um mouse gamer com tecnologia de ponta para qualificar seus comandos e aprimorar suas jogadas nos games. Com este Mouse Gamer Razer, sua atuaão nas batalhas gamers serço ainda mais bem-sucedidas, com desempenho acima da mçdia e desenvoltura arrasadora, que vai deixar seus oponentes impressionados. O mouse Razer Deathadder Essential tem sensor çptico de 6400 DPI de 4G, 5 botçes, design moderno e ergonçmico, especialmente projetado para jogadores destros, e uma empunhadura lateral emborrachada que garante mais firmeza ao manuseio do equipamento, melhorando as respostas obtidas pelos players. O mouse Razer ainda oferece ajuste de sensibilidade, pezinhos Ultraslick silenciosos, cabo ultra resistente de fibra trançada e Modo Always-On, que mantçm o mouse ligado mesmo quando o equipamento estiver inativo. ç um mouse gamer Razer para ninguçm botar defeito, com todas as funães e especificaães tçcnicas que vocç precisa para ter mais produtividade nos jogos. O Razer Deathadder Essential ç realmente essencial e ainda tem o diferencial de estar habilitado para Razer Synapse 3 e de ser compatçvel com PC e Mac, com porta USB. Conheça o modelo e faça um investimento seguro!",
-        "ativo": true,
+        "descricao": "Nada melhor do que um mouse gamer com tecnologia de ponta para qualificar seus comandos e aprimorar suas jogadas nos games. Com este Mouse Gamer Razer, sua atuação nas batalhas será ainda mais bem-sucedida, com desempenho acima da média e desenvoltura arrasadora, que vai deixar seus oponentes impressionados. O mouse Razer Deathadder Essential tem sensor óptico de 6400 DPI de 4G, 5 botões, design moderno e ergonômico, especialmente projetado para jogadores destros, e uma empunhadura lateral emborrachada que garante mais firmeza ao manuseio do equipamento, melhorando as respostas obtidas pelos jogadores. O mouse Razer ainda oferece ajuste de sensibilidade, pezinhos Ultraslick silenciosos, cabo ultra resistente de fibra trançada e Modo Always-On, que mantém o mouse ligado mesmo quando o equipamento estiver inativo. É um mouse gamer Razer para ninguém botar defeito, com todas as funções e especificações técnicas que você precisa para ter mais produtividade nos jogos. O Razer Deathadder Essential é realmente essencial e ainda tem o diferencial de estar habilitado para Razer Synapse 3 e de ser compatível com PC e Mac, com porta USB. Conheça o modelo e faça um investimento seguro!!",
+        "ativo": "ativo",
         "data": "2017-10-01T09:00:20.000Z"
     },
     {
         "id": 5,
         "equipamento": "All-in-One Media Keyboard",
         "imagem": "Teclado_Microsoft.png",
-        "descricao": "O All-in-One Media Keyboard é o dispositivo ideal para sua sala ou home office. Com teclado em tamanho natural e trackpad multitoque integrado, é possível digitar, passar o dedo, arrastar, fazer zoom e clicar facilmente. O teclado com teclas de atalho de mçdia personalizçveis permite que a Web e suas mçsicas, fotos e filmes favoritos estejam a seu alcance. O teclado tambçm tem um design resistente, portanto, nço ç necessçrio se preocupar com esbarrçes, quedas ou derramamentos comuns. O All-in-One Media Keyboard ç tudo o que vocç precisa para digitar confortavelmente e navegar sem esforço.",
-        "ativo": false,
+        "descricao": "O All-in-One Media Keyboard é o dispositivo ideal para sua sala ou home office. Com teclado em tamanho natural e trackpad multitoque integrado, é possível digitar, deslizar, arrastar, fazer zoom e clicar facilmente. O teclado, com teclas de atalho de mídia personalizáveis, permite que a web e suas músicas, fotos e filmes favoritos estejam a seu alcance. O teclado também tem um design resistente, portanto, não é necessário se preocupar com esbarrões, quedas ou derramamentos comuns. O All-in-One Media Keyboard é tudo o que você precisa para digitar confortavelmente e navegar sem esforço..",
+        "ativo": "desativo",
         "data": "2017-10-01T13:00:00.000Z"
     }
 ]

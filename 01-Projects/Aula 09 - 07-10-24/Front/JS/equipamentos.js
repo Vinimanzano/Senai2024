@@ -1,97 +1,108 @@
-const novoequipamento = document.querySelector('.btn-equipamento');
+const equipamentos = document.querySelectorAll('.all');
+const main = document.querySelector('main');
 const modal = document.querySelector('.modal');
-const modal_equip = document.querySelector('.modal_equip');
-const modal_comments = document.querySelector('.modal_comments')
+const modal_equip = document.querySelector('#modal_equip');
+const modal_comments = document.querySelector('#modal_comments')
+const btn_equipamento = document.querySelector('.btn-equipamento');
+const btn_comment = document.querySelectorAll('#btn-comment');
 const overlay = document.querySelector('.overlay');
-const equipamentos = document.querySelectorAll('.all')
-const novocomentario = document.querySelector('.comment')
+const user = JSON.parse(window.localStorage.getItem("user"));
+const voltar = document.querySelector('.voltar');
+var listaequip = [];
 
+function verificarUsuario() {
+    if (user.perfilId == 1) {
+        voltar.innerHTML = `<a href="login.html"><i class="bi bi-box-arrow-in-right"></i></a>`
+        fetchEquipamentos();
+    }
 
-
-function modalcreatequip() {
-    overlay.classList.toggle('none');
-    modal_equip.classList.toggle('none');
+    fetchEquipamentos();
 }
 
-novoequipamento.addEventListener('click', () => {
-    modalcreatequip();
-});
-
-function modalComments() {
-    overlay.classList.toggle('none');
-    modal_comments.classList.toggle('none');
-}
-
-novocomentario.addEventListener('click', () => {
-    modalComments();
-});
 
 async function fetchEquipamentos() {
+    listaequip = [];
     try {
         const response = await fetch('http://localhost:3000/equipamentos');
         const data = await response.json();
-        console.log('Equipamentos carregados:', data);
-        return data;
+        data.forEach ((e) =>{
+            listaequip.push(e);
+        })
+
+        if (user.perfilId != 1) {
+            renderEquipamentos();
+            return;
+        }
+
+        renderEquipamentosUsuarioComum();
     } catch (error) {
         console.error('Erro ao buscar equipamentos:', error);
     }
 }
 
-function renderEquipamentos(equipamentos) {
-    const equipamentosContainer = document.querySelector('.all');
 
-    equipamentos.forEach((equipamento) => {
-        const div = document.createElement('div');
-        div.classList.add('all');
+function renderEquipamentos() {
+    main.innerHTML = "";
+    listaequip.forEach((e) => {
+        const card = `
+            <div>
+                <div class="div-info-equip">
+                    <img src="../assets/${e.imagem}" class="imgg">
+                    <div class="all">
+                        <p> 
+                            ${e.equipamento}<br></br>
+                            ${e.descricao}
+                        </p>
+                        <div class="all-btn">
+                            <button class="btn-comment" id="btn-comment" onclick="comentario()"><i class="bi bi-chat-right-text-fill"></i></button>
+                            <button class="del" id="del" onclick="del(${e.id})"><i class="bi bi-trash3-fill"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `
+        main.innerHTML += card;
+    })
+}
 
-        const img = document.createElement('img');
-        img.src = `../assets/${equipamento.imagem}`;
-        img.classList.add('imgg');
+function renderEquipamentosUsuarioComum() {
+    listaequip.forEach((e) => {
+        const card = `
+            <div>
+                <div class="div-info-equip">
+                    <img src="../assets/${e.imagem}" class="imgg">
+                    <div class="all">
+                        <p> 
+                            ${e.equipamento}
+                            ${e.descricao}
+                        </p>
+                        <div class="all-btn">
+                            <button class="btn-comment" id="btn-comment"><i class="bi bi-chat-right-text-fill"></i></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `
+        main.innerHTML += card;
+    })
+}
 
-        const p = document.createElement('p');
-        p.textContent = equipamento.descricao;
-
-        const btn = document.createElement('button');
-        btn.classList.add('del');
-        btn.innerHTML = '<i class="bi bi-trash3-fill"></i>';
-
-        div.appendChild(img);
-        div.appendChild(p);
-        div.appendChild(btn);
-        equipamentosContainer.appendChild(div);
+async function del(id) {
+    await fetch(`http://localhost:3000/equipamentos/${id}`, {
+        method: 'DELETE',
+    })
+    .then(() => {
+        fetchEquipamentos();
+    })
+    .catch((error) => {
+        console.error('Erro ao deletar equipamento:', error);
     });
-        
 }
 
-async function DelEquipamentos(id) {
-    try {
-        const response = await fetch(`http://localhost:3000/equipamentos/${id}`, {
-            method: 'DELETE',
-        });
-
-        if (response.ok) {
-            console.log(`Equipamento com ID ${id} excluído com sucesso!`);
-            fetchEquipamentos();
-        } else {
-            throw new Error(`Erro ao excluir equipamento: ${response.status}`);
-        }
-    } catch (error) {
-        console.error(error);
-    }
+function comentario() {
+    window.location.href = "comentario.html";
 }
 
-function adicionarEventosDeletar() {
-    const botoesDeletar = document.querySelectorAll('.del');
-
-    botoesDeletar.forEach((botao) => {
-        botao.addEventListener('click', () => {
-            const equipamentoId = botao.closest('.all').dataset.id;
-            DelEquipamentos(equipamentoId); 
-        });
-    });
+function limparLocalStorage() {
+    window.localStorage.clear();
 }
-
-window.onload = async () => {
-    await fetchEquipamentos();
-    adicionarEventosDeletar();
-};

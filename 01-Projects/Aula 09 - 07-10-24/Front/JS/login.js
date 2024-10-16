@@ -21,7 +21,7 @@ enviar.addEventListener('click', () => {
     .then(data => {
         const user = data.find((user) => user.senha === senha);
         if (user) {
-            localStorage.setItem('user', JSON.stringify(user));
+            window.localStorage.setItem('user', JSON.stringify(user));
             window.location.href = 'equipamentos.html';
         } else {
             alert('Senha Incorreta');

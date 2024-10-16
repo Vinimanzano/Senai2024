@@ -32,7 +32,7 @@ model equipamentos {
   equipamento String
   imagem      String
   descricao   String
-  ativo       Boolean
+  ativo       String
   data        DateTime
   comentarios comentarios[]
 }
