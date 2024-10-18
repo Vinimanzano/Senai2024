@@ -13,7 +13,7 @@ body {
     min-height: 100vh;
 }
 
-.voltar{
+.voltar {
     display: flex;
     background: none;
     border: none;
@@ -21,7 +21,7 @@ body {
     cursor: pointer;
     font-size: 2rem;
     font-weight: 700;
-    color: #000000;
+    color: #000;
 }
 
 header {
@@ -45,79 +45,6 @@ header img {
     align-items: center;
 }
 
-#senha {
-    width: 320px;
-    height: 60px;
-    border-radius: 10px;
-    padding-left: 10px;
-    font-size: 20px;
-    border: none;
-    outline: none;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-}
-
-.div-btn {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 25px;
-    align-items: center;
-    justify-content: center;
-}
-
-.btn {
-    width: 60px;
-    height: 60px;
-    border-radius: 50%;
-    background-color: #fff;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-}
-
-.btn:hover {
-    background-color: #f0f2f5;
-}
-
-.btn:active {
-    transform: scale(0.9);
-}
-
-.btnAll {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 25px;
-    background-color: #fff;
-    width: 350px;
-    height: 450px;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-}
-
-.enviar, .clean {
-    font-size: 2rem;
-    width: 60px;
-    height: 60px;
-    border-radius: 50%;
-    background-color: #fff;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    cursor: pointer;
-}
-
-.enviar:hover, .clean:hover {
-    background-color: #f0f2f5;
-}
-
-.enviar:active, .clean:active {
-    transform: scale(0.9);
-}
-
 main {
     display: flex;
     flex-direction: column;
@@ -137,7 +64,6 @@ main {
     gap: 25px;
     background-color: #fff;
     width: 100%;
-    height: auto;
     border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
     padding: 20px;
@@ -167,19 +93,15 @@ input::placeholder {
 }
 
 #checkbox {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    cursor: pointer;
     width: 20px;
     height: 20px;
-    border-radius: 5px;
-    border: none;
-    background-color: #f0f2f5;
-    cursor: pointer;
-    
-    position: relative;
-    top: -20px;
-    left: -290%;
+}
+
+label {
+    font-weight: 700;
+    color: #000;
+    margin-right: 10px;
 }
 
 #submit {
@@ -187,29 +109,19 @@ input::placeholder {
     justify-content: center;
     align-items: center;
     margin-top: 10%;
+    background-color: #44babc;
+    color: white;
+    border: none;
+    border-radius: 10px;
+    padding: 10px 20px;
+    cursor: pointer;
 }
 
 #submit:hover {
-    background-color: #bcbec2;
-}
-
-label {
-    position: relative;
-    font-weight: 700;
-    color: #000;
-    top: 25%;
-    left: -220%;
+    background-color: #3b9b9e;
 }
 
 @media (max-width: 768px) {
-    .div-btn {
-        grid-template-columns: repeat(2, 1fr);
-    }
-
-    .btnAll {
-        width: 90%;
-    }
-
     main {
         width: 90%;
     }
