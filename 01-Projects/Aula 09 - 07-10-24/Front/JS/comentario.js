@@ -4,7 +4,7 @@ const form = document.querySelector("#comentarioForm");
 
 let comentarioId;
 
-console.log(perfilId.perfilId, Number(idEquip));
+console.log(perfilId.perfilId,idEquip);
 
 async function fetchComentarios() {
     try {

@@ -7,12 +7,12 @@ const btn_equipamento = document.querySelector('.btn-equipamento');
 const btn_comment = document.querySelectorAll('#btn-comment');
 const overlay = document.querySelector('.overlay');
 const user = JSON.parse(window.localStorage.getItem("user"));
-const voltar = document.querySelector('.voltar');
+const sair = document.querySelector('.sair');
 var listaequip = [];
 
 function verificarUsuario() {
     if (user.perfilId == 1) {
-        voltar.innerHTML = `<a href="login.html"><i class="bi bi-box-arrow-in-right"></i></a>`;
+        sair.innerHTML = `<a href="login.html"><i class="bi bi-box-arrow-in-right"></i></a>`;
     }
     fetchEquipamentos();
 }
@@ -35,28 +35,6 @@ async function fetchEquipamentos() {
         console.error('Erro ao buscar equipamentos:', error);
     }
 }
-
-
-async function fetchEquipamentos() {
-    listaequip = [];
-    try {
-        const response = await fetch('http://localhost:3000/equipamentos');
-        const data = await response.json();
-        data.forEach ((e) =>{
-            listaequip.push(e);
-        })
-
-        if (user.perfilId != 1) {
-            renderEquipamentos();
-            return;
-        }
-
-        renderEquipamentosUsuarioComum();
-    } catch (error) {
-        console.error('Erro ao buscar equipamentos:', error);
-    }
-}
-
 
 function renderEquipamentos() {
     main.innerHTML = "";
