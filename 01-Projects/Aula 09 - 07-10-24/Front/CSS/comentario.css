@@ -74,7 +74,7 @@ main h1 {
     color: #349799;
 }
 
-.modal {
+.modal, .update {
     display: none; 
     position: fixed;
     z-index: 1000;
@@ -88,26 +88,16 @@ main h1 {
 }
 
 @keyframes fadeIn {
-    from {
-        opacity: 0;
-    }
-    to {
-        opacity: 1;
-    }
+    from { opacity: 0; }
+    to { opacity: 1; }
 }
 
 @keyframes slideDown {
-    from {
-        transform: translateY(-50px);
-        opacity: 0;
-    }
-    to {
-        transform: translateY(0);
-        opacity: 1;
-    }
+    from { transform: translateY(-50px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
 }
 
-.modal-content {
+.modal-content, .modal-update {
     background-color: #ffffff;
     border-radius: 15px;
     padding: 30px;
@@ -120,6 +110,7 @@ main h1 {
     flex-direction: column;
     align-items: center;
     gap: 20px;
+    position: relative;
 }
 
 .close {
@@ -130,6 +121,7 @@ main h1 {
     color: #555;
     cursor: pointer;
     transition: color 0.2s;
+    z-index: 1001;
 }
 
 .close:hover {
@@ -152,6 +144,22 @@ main h1 {
     font-style: italic;
 }
 
+#updateInput {
+    width: 100%;
+    height: 80px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    background-color: #f9f9f9;
+    resize: none;
+    font-size: 1rem;
+}
+
+#updateInput::placeholder {
+    color: #aaa;
+    font-style: italic;
+}
+
 .btn-modal-comment {
     width: 100%;
     padding: 10px;
@@ -168,7 +176,7 @@ main h1 {
     background-color: #369a9a;
 }
 
-.perfilNome{
+.perfilNome {
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -182,7 +190,7 @@ main h1 {
     width: 100%;
 }
 
-.comentario-item{
+.comentario-item {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -191,6 +199,17 @@ main h1 {
     padding: 20px;
     background-color: #fff;
     border-bottom: 2px solid #369a9a;
+}
+
+.btn-sm {
+    display: flex;
+    background: none;
+    border: none;
+    outline: none;
+    cursor: pointer;
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #349799;
 }
 
 @media (max-width: 768px) {

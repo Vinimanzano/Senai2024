@@ -21,6 +21,7 @@ header {
     align-items: center;
     background-color: #44babc;
     padding: 20px;
+
 }
 
 .btn-equipamento {
@@ -34,10 +35,11 @@ header {
     color: #00fbff;
 }
 
-.voltar {
+.sair {
     display: flex;
     font-size: 2rem;
     color: #00fbff;
+    gap: 20px;
 }
 
 header img {

@@ -9,7 +9,7 @@
     <title>Comentários</title>
 </head>
 
-<body> 
+<body>
     <header>
         <img src="../assets/techman.png" alt="Logo">
         <div class="sair">
@@ -30,6 +30,17 @@
             <form id="comentarioForm">
                 <textarea id="comentarioInput" name="comentario" placeholder="Digite seu comentário" required></textarea>
                 <button class="btn-modal-comment" type="submit">Adicionar Comentário</button>
+            </form>
+        </div>
+    </div>
+
+    <div id="update" class="update">
+        <div class="modal-update">
+            <span id="closeModalUpdate" class="close">&times;</span>
+            <h2>Atualizar Comentário</h2>
+            <form id="updateForm">
+                <textarea id="updateInput" name="update" placeholder="Atualize seu comentário" required></textarea>
+                <button type="button" class="btn-modal-comment" onclick="editComentario()">Atualizar Comentário</button>
             </form>
         </div>
     </div>

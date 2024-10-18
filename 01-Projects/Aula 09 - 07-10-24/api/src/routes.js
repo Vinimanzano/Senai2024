@@ -10,7 +10,8 @@ const router = express.Router();
 router.get('/comentarios', comentarios.read);
 router.get('/comentarios/:id', comentarios.readbyequip);
 router.post('/comentarios', comentarios.create);
-router.put('/comentarios/:id', comentarios.update);
+router.put('/comentarios/:id/:perfil', comentarios.update);
+router.patch('/comentario/:id/:perfil', comentarios.update);
 router.delete('/comentarios/:id', comentarios.del);
 
 router.get('/equipamentos', equipamentos.read);
