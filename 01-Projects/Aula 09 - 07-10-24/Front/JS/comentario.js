@@ -1,8 +1,12 @@
-let perfilId = parseInt(localStorage.getItem('perfilId')) || 1;
+const perfilId = JSON.parse(localStorage.getItem('user'));
+const idEquip = window.localStorage.getItem('idEquip');
+const form = document.querySelector("#comentarioForm")
+
+console.log(perfilId.perfilId, Number(idEquip));
 
 async function fetchComentarios() {
     try {
-        const response = await fetch('http://localhost:3000/comentarios');
+        const response = await fetch(`http://localhost:3000/comentarios/${idEquip}`);
         if (!response.ok) {
             throw new Error(`Erro: ${response.status} - ${response.statusText}`);
         }
@@ -11,7 +15,7 @@ async function fetchComentarios() {
     } catch (error) {
         console.error('Erro ao buscar comentários:', error);
         document.getElementById('comentarios').innerText = 'Erro ao carregar comentários.';
-    }
+    }   
 }
 
 function renderComentarios(comentarios) {
@@ -19,9 +23,23 @@ function renderComentarios(comentarios) {
     comentariosDiv.innerHTML = '';
 
     comentarios.forEach(comentario => {
+        let perfil;
+
+        switch(comentario.perfil) {
+            case 1: perfil = 'Comum';
+            break;
+            case 2: perfil = 'Administrador';
+            break;
+            case 3: perfil = 'Tecnico';
+            break;
+            case 4: perfil = 'Gerente'
+            break;
+        }
+
         const comentarioDiv = document.createElement('div');
         comentarioDiv.className = 'comentario-item';
         comentarioDiv.innerHTML = `
+            <p class="perfilNome"><strong>Perfil: </strong> ${perfil}</p>
             <p><strong>Comentário:</strong> ${comentario.comentario}</p>
             <p><strong>Data:</strong> ${new Date(comentario.data).toLocaleString()}</p>
         `;
@@ -39,14 +57,14 @@ function renderComentarios(comentarios) {
     });
 }
 
-async function addComentario(event) {
-    event.preventDefault();
+form.addEventListener('submit', async (e) => {
+    e.preventDefault();
 
-    const comentarioInput = document.getElementById('comentarioInput');
-    const comentario = comentarioInput.value;
-
-    const equipamentoId = 1;
-    const perfilId = 2;
+    const data = {
+        comentario: form.comentario.value,
+        equipamentoId: Number(idEquip),
+        perfilId: perfilId.perfilId
+    }
 
     try {
         const response = await fetch('http://localhost:3000/comentarios', {
@@ -54,7 +72,7 @@ async function addComentario(event) {
             headers: {
                 'Content-Type': 'application/json',
             },
-            body: JSON.stringify({ comentario, equipamentoId, perfilId }),
+            body: JSON.stringify(data),
         });
 
         if (!response.ok) {
@@ -67,7 +85,8 @@ async function addComentario(event) {
     } catch (error) {
         console.error('Erro ao adicionar comentário:', error);
     }
-}
+
+})
 
 async function deleteComentario(comentarioId) {
     try {
@@ -102,7 +121,6 @@ function closeModal() {
 }
 
 document.addEventListener('DOMContentLoaded', fetchComentarios);
-document.getElementById('comentarioForm').addEventListener('submit', addComentario);
 
 window.onclick = function(event) {
     if (event.target == modal) {

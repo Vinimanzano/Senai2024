@@ -8,6 +8,7 @@ const perfis = require('./controllers/perfis');
 const router = express.Router();
 
 router.get('/comentarios', comentarios.read);
+router.get('/comentarios/:id', comentarios.readbyequip);
 router.post('/comentarios', comentarios.create);
 router.put('/comentarios/:id', comentarios.update);
 router.delete('/comentarios/:id', comentarios.del);

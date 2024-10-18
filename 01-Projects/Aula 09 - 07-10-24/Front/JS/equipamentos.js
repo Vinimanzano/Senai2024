@@ -71,7 +71,7 @@ function renderEquipamentos() {
                             ${e.descricao}
                         </p>
                         <div class="all-btn">
-                            <button class="btn-comment" id="btn-comment" onclick="comentario()"><i class="bi bi-chat-right-text-fill"></i></button>
+                            <button class="btn-comment" id="btn-comment" onclick="comentario(${e.id})"><i class="bi bi-chat-right-text-fill"></i></button>
                             <button class="del" id="del" onclick="del(${e.id})"><i class="bi bi-trash3-fill"></i></button>
                         </div>
                     </div>
@@ -94,7 +94,7 @@ function renderEquipamentosUsuarioComum() {
                             ${e.descricao}
                         </p>
                         <div class="all-btn">
-                            <button class="btn-comment" id="btn-comment" onclick="comentario()"><i class="bi bi-chat-right-text-fill"></i></button>
+                            <button class="btn-comment" id="btn-comment" onclick="comentario(${e.id})"><i class="bi bi-chat-right-text-fill"></i></button>
                         </div>
                     </div>
                 </div>
@@ -116,7 +116,8 @@ async function del(id) {
     });
 }
 
-function comentario() {
+function comentario(id) {
+    window.localStorage.setItem('idEquip', id);
     window.location.href = "comentario.html";
 }
 

@@ -10,6 +10,20 @@ const read = async (req, res) => {
     }
 };
 
+const readbyequip = async (req, res) => {
+    try {
+        const result = await prisma.comentarios.findMany({
+            where: {
+                equipamento: Number(req.params.id)
+            }
+        });
+
+        res.status(200).json(result);
+    } catch (error) {
+        res.status(500).json({ error: error.message });
+    }
+} 
+
 const create = async (req, res) => {
     const { comentario, equipamentoId, perfilId } = req.body;
   
@@ -58,6 +72,7 @@ const del = async (req, res) => {
 
 module.exports = {
     read,
+    readbyequip,
     create,
     update,
     del
