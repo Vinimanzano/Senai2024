@@ -45,18 +45,31 @@ const create = async (req, res) => {
   };
 
 
-const update = async (req, res) => {
+  const update = async (req, res) => {
+    const { id } = req.params;
+    const { comentario } = req.body;
+
     try {
-        const { id } = req.params;
+        const existingComentario = await prisma.comentarios.findUnique({
+            where: { id: Number(id) },
+        });
+
+        if (!existingComentario) {
+            return res.status(404).json({ error: 'Comentário não encontrado.' });
+        }
+
         const result = await prisma.comentarios.update({
             where: { id: Number(id) },
-            data: req.body
+            data: { comentario },
         });
+
         res.status(200).json(result);
     } catch (error) {
-        res.status(500).json({ error: error.message });
+        console.error('Erro ao atualizar comentário:', error);
+        res.status(500).json({ error: 'Erro ao atualizar comentário.' });
     }
 };
+
 
 const del = async (req, res) => {
     try {
