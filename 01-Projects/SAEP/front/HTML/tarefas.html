@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tarefas Rápidas</title>
+  <link rel="stylesheet" href="../CSS/tarefas.css">
+</head>
+
+<body>
+  <header>
+    <h1>Tarefas Rápidas</h1>
+    <button id="btnAdicionarTarefa">Adicionar Tarefa</button>
+  </header>
+
+  <main>
+    <!-- Tarefas a Fazer -->
+    <section id="tarefas-a-fazer">
+      <h2>Tarefas a Fazer</h2>
+      <ul id="tarefas-a-fazer-lista">
+        <!-- Tarefas a fazer serão inseridas aqui -->
+      </ul>
+    </section>
+
+    <!-- Tarefas Concluídas -->
+    <section id="tarefas-concluidas">
+      <h2>Tarefas Concluídas</h2>
+      <ul id="tarefas-concluidas-lista">
+        <!-- Tarefas concluídas serão inseridas aqui -->
+      </ul>
+    </section>
+  </main>
+
+  <!-- Modal para Criar Nova Tarefa -->
+  <div id="modalAdicionarTarefa" class="modal">
+    <div class="modal-conteudo">
+      <h3>Adicionar Tarefa</h3>
+      <input type="text" id="novaTarefa" placeholder="Digite o nome da tarefa" />
+      <button id="salvarTarefa">Salvar</button>
+      <button id="fecharModal">Fechar</button>
+    </div>
+  </div>
+
+  <footer>
+    <p id="copyright"></p>
+  </footer>
+
+
+  <script src="../JAVASCRIPT/tarefas.js"></script>
+  <script src="../JAVASCRIPT/Copyright.js"></script>
+</body>
+
+</html>

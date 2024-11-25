@@ -1,0 +1,248 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f7fb; /* Cor de fundo mais suave */
+    color: #333;
+  }
+  
+  header {
+    background-color: #007bff;
+    padding: 25px;
+    color: white;
+    text-align: center;
+    border-radius: 10px 10px 0 0;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+  }
+
+  main{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  
+    width: 100vh;
+    height: 75vh;
+  }
+  
+  header h1 {
+    font-size: 2.5rem;
+    font-weight: bold;
+    margin-bottom: 15px;
+  }
+  
+  button {
+    padding: 12px 24px;
+    border: none;
+    background-color: #28a745; /* Verde vibrante */
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 8px;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+  }
+  
+  button:hover {
+    background-color: #218838; /* Verde escuro no hover */
+    transform: scale(1.05); /* Leve aumento no tamanho */
+  }
+  
+  main {
+    padding: 30px 20px;
+    max-width: 1100px;
+    margin: 20px auto;
+  }
+  
+  section {
+    margin-bottom: 40px;
+  }
+  
+  h2 {
+    font-size: 2rem;
+    font-weight: 600;
+    margin-bottom: 15px;
+    color: #444;
+  }
+  
+  ul {
+    list-style: none;
+    padding: 0;
+  }
+  
+  li {
+    background-color: #fff;
+    margin: 15px 0;
+    padding: 15px;
+    border-radius: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.3s ease, transform 0.2s ease;
+  }
+  
+  li:hover {
+    transform: translateY(-5px); /* Efeito de levitação no hover */
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+  }
+  
+  li button {
+    margin-left: 10px;
+    padding: 10px 18px;
+    font-size: 14px;
+    border-radius: 5px;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+  }
+  
+  li button:nth-child(1) {
+    background-color: #ffc107; /* Cor amarela para "Concluir" */
+  }
+  
+  li button:nth-child(1):hover {
+    background-color: #e0a800;
+  }
+  
+  li button:nth-child(2) {
+    background-color: #ff5722; /* Cor laranja para "Editar" */
+  }
+  
+  li button:nth-child(2):hover {
+    background-color: #e64a19;
+  }
+  
+  li button:nth-child(3) {
+    background-color: #dc3545; /* Cor vermelha para "Excluir" */
+  }
+  
+  li button:nth-child(3):hover {
+    background-color: #c82333;
+  }
+  
+  .modal {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+  
+  .modal.active {
+    display: flex;
+    opacity: 1;
+  }
+  
+  .modal-conteudo {
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 15px;
+    width: 320px;
+    text-align: center;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
+    animation: modalEnter 0.3s ease;
+  }
+  
+  .modal-conteudo h3 {
+    font-size: 1.8rem;
+    margin-bottom: 20px;
+    color: #333;
+  }
+  
+  .modal-conteudo input {
+    width: 100%;
+    padding: 12px;
+    margin: 12px 0;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+    outline: none;
+    transition: border-color 0.3s ease;
+  }
+  
+  .modal-conteudo input:focus {
+    border-color: #007bff;
+  }
+  
+  .modal-conteudo button {
+    width: 100%;
+    padding: 12px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .modal-conteudo button:hover {
+    background-color: #218838;
+  }
+  
+  @keyframes modalEnter {
+    from {
+      transform: scale(0.9);
+      opacity: 0;
+    }
+    to {
+      transform: scale(1);
+      opacity: 1;
+    }
+  }
+  
+  @media (max-width: 768px) {
+    body {
+      padding: 10px;
+    }
+  
+    main {
+      padding: 20px;
+    }
+  
+    header {
+      padding: 20px;
+    }
+  
+    button {
+      padding: 10px 20px;
+      font-size: 16px;
+    }
+  
+    li {
+      padding: 12px;
+      font-size: 14px;
+    }
+  
+    .modal-conteudo {
+      width: 80%;
+      padding: 20px;
+    }
+  }
+  
+  footer {
+    background-color: var(--Black);
+    color: #000000;
+    text-align: center;
+    padding: 1rem 0;
+    bottom: 0;
+    width: 100%;
+}
+
+footer div i{
+    font-size: 1.4rem;
+    gap: 5%;
+    cursor: pointer;
+}
+
+footer i:hover {
+    color: #007bff;
+}
