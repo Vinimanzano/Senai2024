@@ -1,19 +1,3 @@
-/*
-  Warnings:
-
-  - You are about to drop the `tb_lancamentos` table. If the table is not empty, all the data it contains will be lost.
-  - You are about to drop the `tb_usuario` table. If the table is not empty, all the data it contains will be lost.
-
-*/
--- DropForeignKey
-ALTER TABLE `tb_lancamentos` DROP FOREIGN KEY `Tb_lancamentos_usuario_id_fkey`;
-
--- DropTable
-DROP TABLE `tb_lancamentos`;
-
--- DropTable
-DROP TABLE `tb_usuario`;
-
 -- CreateTable
 CREATE TABLE `Usuario` (
     `id` INTEGER NOT NULL AUTO_INCREMENT,
