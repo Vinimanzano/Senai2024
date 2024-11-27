@@ -1,18 +1,20 @@
 const express = require('express');
 const router = express.Router();
 
-const usuariosController = require('./controllers/usuarios');
-const lancamentosController = require('./controllers/lancamentos');
+const Usuario = require('./controllers/usuarios.js');
+const Lancamento = require('./controllers/lancamentos.js');
 
-router.get('/usuarios', usuariosController.read);
-router.get('/usuarios/:id', usuariosController.read);
-router.post('/usuarios', usuariosController.create);
+router.get('/', (req, res) => {
+    res.send('API Livro Caixa Respondendo');
+});
 
+router.post('/usuarios', Usuario.create);
+router.get('/usuarios', Usuario.read);
 
-router.get('/lancamentos', lancamentosController.read);
-router.get('/lancamentos/:id', lancamentosController.read);
-router.post('/lancamentos', lancamentosController.create);    
-router.put('/lancamentos/:id', lancamentosController.update);
-router.delete('/lancamentos/:id', lancamentosController.del);
+router.post('/lancamentos', Lancamento.create);
+router.get('/lancamentos', Lancamento.read);
+router.get('/lancamentos/:dia', Lancamento.readDia);
+router.put('/lancamentos', Lancamento.update);
+router.delete('/lancamentos/:id', Lancamento.del);
 
 module.exports = router;

@@ -13,4 +13,7 @@ const read = async (req, res) => {
     res.json(usuarios);
 }
 
-module.exports = { create, read };
+module.exports = { 
+    create, 
+    read 
+};

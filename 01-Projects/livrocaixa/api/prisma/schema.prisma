@@ -13,24 +13,24 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Tb_usuario{
-  id  Int @id @default(autoincrement())
-  nome  String
-  email String  @unique
-  lancamentos Tb_lancamentos[]
-}
-
-model Tb_lancamentos{
+model Usuario{
   id Int @id @default(autoincrement())
-  descricao String
-  valor Float
-  data DateTime @default(now())
-  usuario_id Int
-  tipo Tipo
-  usuario Tb_usuario @relation(fields: [usuario_id], references: [id])
+  nome String @db.VarChar(100)
+  email String @db.VarChar(255) @unique
+  lancamentos Lancamento[]
 }
 
-enum Tipo{
-  ENTRADA
-  SAIDA
+model Lancamento{
+  id Int @id @default(autoincrement())
+  usuario Int
+  descricao String @db.Text
+  valor Float
+  tipo Tipo @default(entrada)
+  data DateTime @db.DateTime @default(now())
+  user Usuario @relation(fields: [usuario], references: [id])
+}
+
+enum Tipo {
+  entrada
+  saida
 }
